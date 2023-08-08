@@ -8,7 +8,56 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <p id="p" class="is-size-3">Lets make a website!</p>
+    <nav class="navbar m-4" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+
+            <a class="navbar-item">
+              About
+            </a>
+            <a class="navbar-item">
+              Search
+            </a>
+            <a class="navbar-item">
+              Find Me a Movie
+            </a>
+
+          </div>
+      
+          
+        </div>
+      </nav>
+      <main>
+        <!-- Main container -->
+        <div class="box m-6 has-background-dark columns is-justify-content-center">
+            
+            <div class="field has-addons is-justify-content-center box column is-6 has-background-primary">
+                <p class="control">
+                  <input class="input" type="text" placeholder="Title of Movie or Show">
+                </p>
+                <p class="control">
+                  <button class="button">
+                    Search
+                  </button>
+                </p>
+              </div>
+
+        </div>
+    
+      </main>
+    
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
     crossorigin="anonymous"></script>
