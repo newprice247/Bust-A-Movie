@@ -10,9 +10,7 @@
 <body>
     <nav class="navbar m-4" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-          </a>
+          <p class="navbar-item is-size-3 has-text-primary">Bust A Movie</p>
       
           <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -41,9 +39,10 @@
       </nav>
       <main>
         <!-- Main container -->
-        <div class="box m-6 has-background-dark columns is-justify-content-center">
-            
-            <div class="field has-addons is-justify-content-center box column is-6 has-background-primary">
+        <div id="searchForMovie" class="box has-text-centered section is-medium has-background-primary">
+            <p class="is-size-3">Use the search bar below to find a movie!</p>
+            <div class="box m-6 has-background-dark columns is-justify-content-center">
+            <div  class="field has-addons is-justify-content-center box column is-6 has-background-primary is-align-items-center">
                 <p class="control">
                   <input class="input" type="text" placeholder="Title of Movie or Show">
                 </p>
@@ -53,7 +52,7 @@
                   </button>
                 </p>
               </div>
-
+            </div>
         </div>
     
       </main>
