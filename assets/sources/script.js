@@ -39,7 +39,7 @@ var movieSearch = (title) => {
         })
         .then(function (data) {
             imdbID = data.imdbID
-            console.log(imdbID)
+            console.log(data)
             // return imdbID
         }) 
         // console.log(imdbID)
