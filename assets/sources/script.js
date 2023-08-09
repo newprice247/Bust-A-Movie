@@ -42,7 +42,21 @@ var movieSearch = (title) => {
         })
         .then(function (data) {
             var searchResults = (data.Search)
-            console.log(searchResults)
+
+
+            for (var i=0; i<5; i++){
+                console.log(searchResults[i].Title)
+                // controller.setAttribute(data[i]);
+            }
+            // $.each(searchResults, (i, val) => {
+            //     var value = val.Title
+            //     console.log(value)
+            //     // value.slice(0,5).forEach(function(content) {
+            //     //     console.log(content) 
+            //     // })
+            // })
+
+        })
             // for (i=0)
         //     var name = data.Title;
         //     var nameArr = name.split(' ')
@@ -89,7 +103,7 @@ var movieSearch = (title) => {
         //             <a target="_blank" href="https://www.metacritic.com/movie/${nameString}">
         //                     <img src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
         //             </a>`)
-        })
+        // })
 
         // let string = 'lets make a website'
         // var arr1 = string.split(' ')
