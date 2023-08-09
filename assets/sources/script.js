@@ -41,25 +41,55 @@ var movieSearch = (title) => {
             return response.json()
         })
         .then(function (data) {
-            imdbID = data.imdbID;
+            var name = data.Title;
+            var nameArr = name.split(' ')
+            let nameString = nameArr.join('_')
+                console.log(nameString)
+            console.log(name)
+            console.log(nameArr)
             console.log(data);
             console.log(data.Title);
             console.log(data.Plot);
+            
             $('#searchForMovie').html(`
             <p class="is-size-3">It worked!</p>
             <div class="box">
                 <p>Title: ${data.Title}</p>
                 <p>Year:  ${data.Year}</p>
+                <p>Rated: ${data.Rated}</p>
                 <img src="${data.Poster}" alt="Movie Poster">
-                <p>Ratings:</p>
-                <p>IMDb: ${data.Ratings[0].Value}</p>
-                <p>Rotten Tomatoes: ${data.Ratings[1].Value}.</p>
-                <p>Metacritic: ${data.Ratings[2].Value}</p>
-                
+                <p>Genre: ${data.Genre}</p>
+                <div id="ratingsBox">
+                    <p>Ratings:</p>
+                    <p>Rotten Tomatoes: ${data.Ratings[1].Value}.</p>
+                    <a target="_blank" href="https://www.rottentomatoes.com/m/${nameString}">
+                        <img src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
+                    </a>
+                   <p>IMDb: ${data.Ratings[0].Value}</p>
+                   
+                    <a target="_blank" href="https://www.imdb.com/title/${data.imdbID}/">
+                        <img src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
+                    </a>
+                </div>
             </div>
             `)
-        }) 
-        // console.log(imdbID)
+            return data
+        })
+        .then(function (data) {
+            var name = data.Title;
+            var nameArr = name.split(' ')
+            let nameString = nameArr.join('-').toLowerCase()
+            console.log(nameString.toLowerCase())
+            $('#ratingsBox').append(`
+                    <p>Metacritic: ${data.Ratings[2].Value}</p>
+                    <a target="_blank" href="https://www.metacritic.com/movie/${nameString}">
+                            <img src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+                    </a>`)
+        })
+
+        // let string = 'lets make a website'
+        // var arr1 = string.split(' ')
+        // console.log(arr1)
     
     
     // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/${imdbID}/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
