@@ -98,3 +98,4 @@ var movieSearch = (title) => {
             console.error(error);
           });
 }       
+console.log('change')
