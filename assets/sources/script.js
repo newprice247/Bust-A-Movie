@@ -30,19 +30,14 @@ $('#searchButton').on('click', function() {
 var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
-    // var imdbID
     var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&page=1&apikey=611f00c7`;
     
-    
-    var imdbID
-
     fetch(movieDatabaseApi)
         .then(function (response) {
             return response.json()
         })
         .then(function (data) {
             // var searchResults = (data.Search)
-
             console.log(data)
             // for (var i=0; i<5; i++){
             //     console.log(searchResults[i].Title)
@@ -98,17 +93,8 @@ var movieSearch = (title) => {
         })
         .then(function (data2) {
             console.log(data2)
-        }) 
-    
-    
-    // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/${imdbID}/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
-
-    // fetch(watchmodeStreamingApi)
-    //     .then(function (response) {
-    //         return response.json()
-    //     })
-    //     .then(function (data) {
-    //         console.log(data)
-    //     })
-
+        })
+        .catch(error => {
+            console.error(error);
+          });
 }       
