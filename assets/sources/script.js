@@ -100,6 +100,7 @@ var movieSearch = (title) => {
 }       
 
 console.log('different')
-console.log('change')
 
-console.log('change')
+console.log('git pull')
+
+console.log('git fetch --all')
