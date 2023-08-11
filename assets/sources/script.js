@@ -32,7 +32,7 @@ var movieSearch = (title) => {
     console.log(title);
     var movieDatabaseSearch = `http://www.omdbapi.com/?s=${title}&page=1&apikey=611f00c7`;
 
-    // var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&page=1&apikey=611f00c7`;
+    var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&page=1&apikey=611f00c7`;
     
     fetch(movieDatabaseSearch)
         .then(function (response) {
@@ -42,20 +42,37 @@ var movieSearch = (title) => {
             console.log(searchData)
             var searchResults = (searchData.Search)
             for (var i=0; i<5; i++){
+                var movieId = searchResults[i].imdbID
                 var poster = searchResults[i].Poster
-                console.log(searchResults)
                 $('#searchResults').append(`
-                    <div class="column has-background-dark">
+                    <div id="${movieId}" class="column has-background-dark">
                         <p>${searchResults[i].Title}</p>
-                            <a target="_blank" href="#">
-                            <img src="${poster}">
+                        <a>
+                            <img class="resultButton" src="${poster}">
                         </a>
                     </div>
                 `)
-                console.log(searchResults[i].Title)
             }
+            
+            $('.resultButton').on('click', function() {
+                var id = $(this).parents('.column').attr('id')
+                console.log(id)
+                console.log('Search Result Button clicked')
+            })
+
+            $('img.thumbnail').click(function() {
+                window.location.href = this.id + '.html';
+            });
+
+            return fetch(`${movieDatabaseApi}`)
+
         })
-        
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            console.log(data)
+        })
         // .then(function (data) {
             
         //     console.log(data)
