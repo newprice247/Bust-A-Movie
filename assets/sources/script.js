@@ -39,6 +39,7 @@ var movieSearch = (title) => {
         .then(function (searchData) {
             console.log(searchData)
             var searchResults = (searchData.Search)
+            $('#searchResults').html(``)
             for (var i=0; i<5; i++){
                 var movieId = searchResults[i].imdbID
                 var poster = searchResults[i].Poster
