@@ -1,99 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bust a Movie</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bust-a-Mov-ie</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-    <nav class="navbar m-4" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <p class="navbar-item is-size-3 has-text-primary">Bust A Movie</p>
-        </div>
-      
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
+  <nav class="navbar m-4" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <p class="navbar-item is-size-3 has-text-primary">Bust-A-Movie</p>
+    </div>
 
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item">
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+
+        <a class="navbar-item ml-6 is-size-5">
+          About
+        </a>
+        <a class="navbar-item ml-6 is-size-5">
+          Search
+        </a>
+
+      </div>
+
+
+    </div>
+  </nav>
+  <main>
+    <!-- Main container -->
+    <div id="searchForMovie" class="box has-text-centered section is-medium has-background-primary">
+
+      <!-- Show Results Function replaces the code beginning here -->
+
+      <p class="is-size-3">Use the search bar below to find a movie!</p>
+      <div class="box m-6 has-background-dark columns is-justify-content-center">
+        <div
+          class="field has-addons is-justify-content-center box column is-6 has-background-primary is-align-items-center">
+          <p class="control">
+            <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
+          </p>
+          <p class="control">
+            <button id="searchButton" class="button">
               Search
-            </a>
-            <a class="navbar-item">
-              Find Me a Movie
-            </a>
-
-          </div>
-      
-          
-        </div>
-      </nav>
-      <main>
-        <!-- Main container -->
-        <div id="searchForMovie" class="box has-text-centered section is-medium has-background-primary">
-            <p class="is-size-3">Use the search bar below to find a movie!</p>
-            <div class="box m-6 has-background-dark columns is-justify-content-center">
-            <div  class="field has-addons is-justify-content-center box column is-6 has-background-primary is-align-items-center">
-                <p class="control">
-                  <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
-                </p>
-                <p class="control">
-                  <button id="searchButton" class="button">
-                    Search
-                  </button>
-                </p>
-              </div>
-              
-            </div>
-            <div id="searchResults" class="has-background-light columns">
-              
-            </div>
+            </button>
+          </p>
         </div>
 
-        <div id="favMovies" class="section has-background-primary columns">
+      </div>
 
-            <div class="column">
-                <p>Spiderman: Across the Spider-Verse</p>
-                <a href="">
-                    <img src="" alt="">
-                </a>
-            </div>
-            
-            <div class="column">
-                <p>Avengers: Endgame</p>
-                <a href="">
-                    <img src="" alt="">
-                </a>
-            </div>
-            <div class="column">
-                <p>Mad Max: Fury Road</p>
-                <a href="">
-                    <img src="" alt="">
-                </a>
-            </div>
-            <div class="column">
-                <p>Peaky Blinders</p>
-                <a href="">
-                    <img src="" alt="">
-                </a>
-            </div>
-            <div class="column">
-                <p>John Wick</p>
-                <a href="">
-                    <img src="" alt="">
-                </a>
-            </div>
-            
-        </div>
-    
-      </main>
-      
-    
+      <!-- Show Results Function end of code -->
+
+      <div id="searchResults" class="has-background-light columns">
+
+
+        <!-- Search Results will show up here -->
+
+
+      </div>
+    </div>
+
+    <div id="favMovies" class="section has-background-primary columns">
+
+      <div class="column">
+        <p>Spiderman: Across the Spider-Verse</p>
+        <a href="">
+          <img src="" alt="">
+        </a>
+      </div>
+
+      <div class="column">
+        <p>Avengers: Endgame</p>
+        <a href="">
+          <img src="" alt="">
+        </a>
+      </div>
+      <div class="column">
+        <p>Mad Max: Fury Road</p>
+        <a href="">
+          <img src="" alt="">
+        </a>
+      </div>
+      <div class="column">
+        <p>Peaky Blinders</p>
+        <a href="">
+          <img src="" alt="">
+        </a>
+      </div>
+      <div class="column">
+        <p>John Wick</p>
+        <a href="">
+          <img src="" alt="">
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+
 </body>
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-    crossorigin="anonymous"></script>
+  crossorigin="anonymous"></script>
 <script src="./assets/sources/script.js"></script>
+
 </html>

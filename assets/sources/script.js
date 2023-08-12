@@ -1,7 +1,6 @@
 //API keys
 // var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
 // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
-
 // var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=b3783de294fab53f3b5f107706f3d99e'
 
 
@@ -25,6 +24,29 @@ $('#searchButton').on('click', function() {
     }
 })
 
+$('.navbar-start').children('a').on('click', function() {
+    console.log('clicked')
+    let aTag = $(this).text()
+    console.log(aTag)
+    if (aTag = 'About') {
+        aboutPage()
+    }
+})
+
+var aboutPage = () => {
+    $('#searchForMovie').html(`
+        <div class="is-size-4">
+            <p>Welcome to Bust-A-Movie, your ultimate movie companion in the digital age! 🎬🍿 Dive into a world of cinematic excitement as we blend the magic of "bust a move" with the thrill of blockbuster hits. With our cutting-edge APIs, we bring you instant access to a treasure trove of movie information - from plot summaries that will leave you in awe, to cast and crew details that will make you feel like an insider.
+
+            But that's not all! Bust-A-Movie takes your movie night to the next level by seamlessly integrating streaming data. Say goodbye to endless scrolling and hello to instant gratification - with a single click, discover exactly where to stream the movies you're searching for. Whether it's the latest Hollywood sensation or a hidden gem from across the globe, we've got your streaming desires covered.
+            
+            So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile, gather your popcorn, and let's "bust a movie" night together! 🌟🎉</p>
+        </div>
+    
+    `)
+}
+
+
 //Search function
 var movieSearch = (title) => {
     console.log('Search button clicked');
@@ -32,20 +54,16 @@ var movieSearch = (title) => {
     var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&search_value=${title}&search_type=2`;
     
     fetch(watchmodeSearch)
-        .then(function (response) {
+        .then(response => {
             return response.json()
         })
-        .then(function (searchData) {
+        .then(searchData => {
             console.log(searchData)
             var searchResults = (searchData.results)
             console.log(searchResults)
             $('#searchResults').html(``)
-            for (var i=0; i<5; i++){
+            for (var i=0; i<10; i++){
                 var movieId = searchResults[i].tmdb_id
-                if(movieId === undefined) {
-                    console.log('no more movies')
-                    break
-                }
                 console.log(searchResults[i].tmdb_id)
                 var poster = searchResults[i].image_url
                 $('#searchResults').append(`
@@ -75,48 +93,15 @@ var movieSearch = (title) => {
             })
         })
 }  
-// var movieSearch = (title) => {
-//     console.log('Search button clicked');
-//     console.log(title);
-//     var movieDatabaseSearch = `https://www.omdbapi.com/?s=${title}&page=1&apikey=611f00c7`;
-    
-//     fetch(movieDatabaseSearch)
-//         .then(function (response) {
-//             return response.json()
-//         })
-//         .then(function (searchData) {
-//             console.log(searchData)
-//             var searchResults = (searchData.Search)
-//             $('#searchResults').html(``)
-//             for (var i=0; i<5; i++){
-//                 var movieId = searchResults[i].imdbID
-//                 var poster = searchResults[i].Poster
-//                 $('#searchResults').append(`
-//                     <div id="${movieId}" class="column has-background-dark">
-//                         <p>${searchResults[i].Title}</p>
-//                         <a>
-//                             <img class="resultButton" src="${poster}">
-//                         </a>
-//                     </div>
-//                 `)
-//             }
-            
-//             $('.resultButton').on('click', function() {
-//                 var id = $(this).parents('.column').attr('id')
-//                 console.log(id)
-//                 showResults(id)
-//                 console.log('Search Result Button clicked')
-//             })
-//         })
-// }  
 
 var showResults = (id) => {
     tmdbSearch = `https://api.themoviedb.org/3/movie/${id}?api_key=b3783de294fab53f3b5f107706f3d99e`;
     fetch(tmdbSearch)
-    .then(function (response) {
+    .then(response => {
         return response.json()
     })
-    .then(function (data) {
+    .then(data => {
+
         var imdbId = data.imdb_id
         console.log(imdbId)
         console.log(data)
@@ -127,17 +112,8 @@ var showResults = (id) => {
             console.log(genres)
         }
 
-        // var genres = genreArr.split(' ')
         var image = '"https://image.tmdb.org/t/p/w300/'
         var name = data.original_title;
-        // var nameArr = name.split(' ')
-        // let nameString = nameArr.join('_')
-        // console.log(nameString)
-        // console.log(name)
-        // console.log(nameArr)
-        // console.log(data);
-        // console.log(data.Title);
-        // console.log(data.Plot);
         
         $('#searchForMovie').html(`
         <p class="is-size-3">It worked!</p>
@@ -154,12 +130,15 @@ var showResults = (id) => {
     .then(response => {
         return response.json();
     })
-    .then(function (data2) {
+    .then(data2 => {
         console.log(data2)
         var name = data2.Title
         var nameArr = name.split(' ')
-        let nameString = nameArr.join('_')
-        console.log(nameString)
+        let nameStringRotten = nameArr.join('_')
+        let nameStringMeta = nameArr.join('-').toLowerCase()
+
+        console.log(nameStringRotten)
+        console.log(nameStringMeta)
         console.log(name)
         console.log(nameArr)
         console.log(data2);
@@ -170,34 +149,26 @@ var showResults = (id) => {
         <div id="ratingsBox">
             <p>Ratings:</p>
             <p>Rotten Tomatoes: ${data2.Ratings[1].Value}.</p>
-            <a target="_blank" href="https://www.rottentomatoes.com/m/${nameString}">
+            <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
                 <img src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
             </a>
             <p>IMDb: ${data2.Ratings[0].Value}</p>
             <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
                 <img src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
             </a>
+            <p>Metacritic: ${data2.Ratings[2].Value}</p>
+                <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
+                        <img src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+                </a>
         </div>
         `)
 
-        return data2
-    })
-    .then(function (data2) {
-        var name = data2.Title;
-        var nameArr = name.split(' ')
-        let nameString = nameArr.join('-').toLowerCase()
-        console.log(nameString.toLowerCase())
-        $('#ratingsBox').append(`
-                <p>Metacritic: ${data2.Ratings[2].Value}</p>
-                <a target="_blank" href="https://www.metacritic.com/movie/${nameString}">
-                        <img src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
-                </a>`)
         return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`)
     })
     .then(response => {
         return response.json();
     })
-    .then(function (data3) {
+    .then(data3 => {
         console.log(data3)
     })
 
