@@ -30,7 +30,7 @@ $('#searchButton').on('click', function() {
 var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
-    var movieDatabaseSearch = `http://www.omdbapi.com/?s=${title}&page=1&apikey=611f00c7`;
+    var movieDatabaseSearch = `https://www.omdbapi.com/?s=${title}&page=1&apikey=611f00c7`;
     
     fetch(movieDatabaseSearch)
         .then(function (response) {
@@ -63,7 +63,7 @@ var movieSearch = (title) => {
 }  
 
 var showResults = (id) => {
-    movieDatabaseSearch = `http://www.omdbapi.com/?i=${id}&page=1&apikey=611f00c7`;
+    movieDatabaseSearch = `https://www.omdbapi.com/?i=${id}&page=1&apikey=611f00c7`;
     fetch(movieDatabaseSearch)
     .then(function (response) {
         return response.json()
