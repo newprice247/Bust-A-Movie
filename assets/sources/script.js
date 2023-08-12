@@ -2,8 +2,7 @@
 // var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
 // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
 
-
-
+// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=b3783de294fab53f3b5f107706f3d99e'
 
 
 //Allows enter key to be pressed to start search
