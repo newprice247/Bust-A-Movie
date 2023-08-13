@@ -13,7 +13,7 @@ $("#searchBar").keypress(function (event) {
 });
 
 //Event Listener for the search button
-$('#searchButton').on('click', function() {
+$('.searchButton').on('click', function() {
     //pulls the text entered into the searchbar and saves it as the variable 'title'
     var title = $('#searchBar').val()
     //calls the movieSearch function and searches for the title of the movie
@@ -52,20 +52,17 @@ var searchPage = () => {
     console.log('searchPage func called')
     $('#searchForMovie').html(`
     <p class="is-size-3">Use the search bar below to find a movie!</p>
-      <div class="box m-6 has-background-dark columns is-justify-content-center">
-        <div class="field has-addons is-justify-content-center box column is-6 has-background-primary is-align-items-center">
-          <p class="control">
+        <div
+          class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
+          <p class="control is-expanded">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
           </p>
           <p class="control">
-            <button id="searchButton" class="button">
+            <button id="searchButton" class="searchButton button">
               Search
             </button>
           </p>
         </div>
-      </div>
-      <div id="searchResults" class="has-background-light columns">
-      </div>
     `)
 }
 
@@ -85,12 +82,20 @@ var movieSearch = (title) => {
             var searchResults = (searchData.results)
             console.log(searchResults)
             $('#searchResults').html(``)
-            for (var i=0; i<10; i++){
-                var movieId = searchResults[i].tmdb_id
-                console.log(searchResults[i].tmdb_id)
+            for (var i=0; i<searchResults.length; i++){
                 var poster = searchResults[i].image_url
+                if (poster == undefined) {
+                    console.log('error no poster')
+                    continue;
+                }
+                var movieId = searchResults[i].tmdb_id
+                if (movieId == undefined || null) {
+                    console.log('error no id')
+                    continue;
+                }
+                console.log(searchResults[i].tmdb_id)
                 $('#searchResults').append(`
-                    <div id="${movieId}" class="column has-background-dark">
+                    <div id="${movieId}" class="box p-3 m-3">
                         <p>${searchResults[i].name}</p>
                         <a>
                             <img class="resultButton" src="${poster}">
@@ -100,7 +105,7 @@ var movieSearch = (title) => {
             }
             
             $('.resultButton').on('click', function() {
-                var id = $(this).parents('.column').attr('id')
+                var id = $(this).parents('.box').attr('id')
                 console.log(id)
                 console.log('Search Result Button clicked')
                 showResults(id)
@@ -124,6 +129,21 @@ var showResults = (id) => {
         return response.json()
     })
     .then(data => {
+
+        $('.navbar-end').append(`
+        <div
+        class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
+        <p class="control">
+          <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
+        </p>
+        <p class="control">
+          <button id="searchButton" class="searchButton button">
+            Search
+          </button>
+        </p>
+
+      </div>
+        `)
 
         var imdbId = data.imdb_id
         console.log(imdbId)

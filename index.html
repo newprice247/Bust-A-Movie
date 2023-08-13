@@ -15,15 +15,18 @@
       <p class="navbar-item is-size-3 has-text-primary">Bust-A-Movie</p>
     </div>
 
-    <div id="navbar" class="navbar-menu">
-      <div class="navbar-start">
+    <div id="navbar" class="navbar-menu is-active">
+      <div class="navbar-start has-text-centered">
 
-        <a id="about" class="navbar-item ml-6 is-size-5">
+        <a id="about" class=" navbar-item m-2 is-size-5 is-tab">
           About
         </a>
-        <a id="search" class="navbar-item ml-6 is-size-5">
+        <a id="search" class="navbar-item m-2 is-size-5">
           Search
         </a>
+
+      </div>
+      <div class="navbar-end">
 
       </div>
 
@@ -32,29 +35,27 @@
   </nav>
   <main>
     <!-- Main container -->
-    <div id="searchForMovie" class="box has-text-centered section is-medium has-background-primary">
+    <div id="mainContainer" class="box has-text-centered section is-medium has-background-primary">
 
       <!-- Show Results Function replaces the code beginning here -->
-
-      <p class="is-size-3">Use the search bar below to find a movie!</p>
-      <div class="box m-6 has-background-dark columns is-justify-content-center">
+      <div id="#searchForMovie">
+        <p class="is-size-3">Use the search bar below to find a movie!</p>
         <div
-          class="field has-addons is-justify-content-center box column is-6 has-background-primary is-align-items-center">
-          <p class="control">
+          class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
+          <p class="control is-expanded">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
           </p>
           <p class="control">
-            <button id="searchButton" class="button">
+            <button id="searchButton" class="searchButton button">
               Search
             </button>
           </p>
+
         </div>
-
       </div>
-
       <!-- Show Results Function end of code -->
 
-      <div id="searchResults" class="has-background-light columns">
+      <div id="searchResults" class="has-background-light is-flex-wrap-wrap columns is-justify-content-space-evenly">
 
 
         <!-- Search Results will show up here -->
