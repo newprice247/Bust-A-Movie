@@ -138,8 +138,9 @@ var showResults = (id) => {
     .then(data2 => {
         console.log(data2)
         var name = data2.Title
-        var nameArr = name.split(' ')
-        let nameStringRotten = nameArr.join('_')
+        var newName = name.replace(':', '')
+        var nameArr = newName.split(' ')
+        let nameStringRotten = nameArr.join('_').toLowerCase()
         let nameStringMeta = nameArr.join('-').toLowerCase()
 
         console.log(nameStringRotten)
