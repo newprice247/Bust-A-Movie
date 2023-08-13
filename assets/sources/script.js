@@ -24,14 +24,16 @@ $('#searchButton').on('click', function() {
     }
 })
 
-$('.navbar-start').children('a').on('click', function() {
-    console.log('clicked')
-    let aTag = $(this).text()
-    console.log(aTag)
-    if (aTag = 'About') {
-        aboutPage()
-    }
+//Event listener for the navbar buttons
+$('#about').on('click', function() {
+    aboutPage()
 })
+
+$('#search').on('click', function() {
+    searchPage()
+})
+
+
 
 var aboutPage = () => {
     $('#searchForMovie').html(`
@@ -43,6 +45,27 @@ var aboutPage = () => {
             So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile, gather your popcorn, and let's "bust a movie" night together! 🌟🎉</p>
         </div>
     
+    `)
+}
+
+var searchPage = () => {
+    console.log('searchPage func called')
+    $('#searchForMovie').html(`
+    <p class="is-size-3">Use the search bar below to find a movie!</p>
+      <div class="box m-6 has-background-dark columns is-justify-content-center">
+        <div class="field has-addons is-justify-content-center box column is-6 has-background-primary is-align-items-center">
+          <p class="control">
+            <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
+          </p>
+          <p class="control">
+            <button id="searchButton" class="button">
+              Search
+            </button>
+          </p>
+        </div>
+      </div>
+      <div id="searchResults" class="has-background-light columns">
+      </div>
     `)
 }
 
