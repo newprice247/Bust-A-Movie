@@ -3,6 +3,8 @@
 // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
 // var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=b3783de294fab53f3b5f107706f3d99e'
 
+$('#searchForMovie').hide()
+
 
 //Allows enter key to be pressed to start search
 $("#searchBar").keypress(function (event) {
@@ -13,58 +15,33 @@ $("#searchBar").keypress(function (event) {
 });
 
 //Event Listener for the search button
-$('.searchButton').on('click', function() {
+$('#searchButton').on('click', function() {
     //pulls the text entered into the searchbar and saves it as the variable 'title'
     var title = $('#searchBar').val()
-    //calls the movieSearch function and searches for the title of the movie
-    movieSearch(title)
     //If statement for the search field being empty when the button is clicked
     if ($('#searchBar').val() === "") {
         console.log('Please enter a movie title')
+        return
     }
+    //calls the movieSearch function and searches for the title of the movie
+    movieSearch(title)
+    console.log('search button clicked')
+    $('#displayResults').html("")
+    $('#aboutPage').hide()
+    $('#searchResults').show()
 })
 
 //Event listener for the navbar buttons
 $('#about').on('click', function() {
-    aboutPage()
+    $('#aboutPage').show()
+    $('#searchForMovie').hide()
+    $('#displayResults').hide()
 })
 
 $('#search').on('click', function() {
-    searchPage()
+    $('#aboutPage').hide()
+    $('#searchForMovie').show()
 })
-
-
-
-var aboutPage = () => {
-    $('#searchForMovie').html(`
-        <div class="is-size-4">
-            <p>Welcome to Bust-A-Movie, your ultimate movie companion in the digital age! 🎬🍿 Dive into a world of cinematic excitement as we blend the magic of "bust a move" with the thrill of blockbuster hits. With our cutting-edge APIs, we bring you instant access to a treasure trove of movie information - from plot summaries that will leave you in awe, to cast and crew details that will make you feel like an insider.
-
-            But that's not all! Bust-A-Movie takes your movie night to the next level by seamlessly integrating streaming data. Say goodbye to endless scrolling and hello to instant gratification - with a single click, discover exactly where to stream the movies you're searching for. Whether it's the latest Hollywood sensation or a hidden gem from across the globe, we've got your streaming desires covered.
-            
-            So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile, gather your popcorn, and let's "bust a movie" night together! 🌟🎉</p>
-        </div>
-    
-    `)
-}
-
-var searchPage = () => {
-    console.log('searchPage func called')
-    $('#searchForMovie').html(`
-    <p class="is-size-3">Use the search bar below to find a movie!</p>
-        <div
-          class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
-          <p class="control is-expanded">
-            <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
-          </p>
-          <p class="control">
-            <button id="searchButton" class="searchButton button">
-              Search
-            </button>
-          </p>
-        </div>
-    `)
-}
 
 
 //Search function
@@ -129,22 +106,7 @@ var showResults = (id) => {
         return response.json()
     })
     .then(data => {
-
-        $('.navbar-end').append(`
-        <div
-        class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
-        <p class="control">
-          <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
-        </p>
-        <p class="control">
-          <button id="searchButton" class="searchButton button">
-            Search
-          </button>
-        </p>
-
-      </div>
-        `)
-
+        $('#displayResults').show()
         var imdbId = data.imdb_id
         console.log(imdbId)
         console.log(data)
@@ -154,11 +116,11 @@ var showResults = (id) => {
             genres += '  '
             console.log(genres)
         }
-
+        $('#searchResults').hide()
         var image = '"https://image.tmdb.org/t/p/w300/'
         var name = data.original_title;
         
-        $('#searchForMovie').html(`
+        $('#displayResults').html(`
         <p class="is-size-3">It worked!</p>
         <div class="box">
             <p>Title: ${name}</p>
@@ -188,7 +150,7 @@ var showResults = (id) => {
         console.log(data2.Title);
         console.log(data2.Plot);
 
-        $('#searchForMovie').append(`
+        $('#displayResults').append(`
         <div id="ratingsBox">
             <p>Ratings:</p>
             <p>Rotten Tomatoes: ${data2.Ratings[1].Value}.</p>
