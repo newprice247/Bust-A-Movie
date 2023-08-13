@@ -122,7 +122,7 @@ var showResults = (id) => {
         
         $('#displayResults').html(`
         <p class="is-size-3">It worked!</p>
-        <div class="box">
+        <div id="resultsBox" class="box">
             <p>Title: ${name}</p>
             <p>Year:  ${data.release_date}</p>
             <p>Runtime: ${data.runtime}</p>
@@ -151,7 +151,7 @@ var showResults = (id) => {
         console.log(data2.Title);
         console.log(data2.Plot);
 
-        $('#displayResults').append(`
+        $('#resultsBox').append(`
         <div id="ratingsBox">
             <p>Ratings:</p>
             <p>Rotten Tomatoes: ${data2.Ratings[1].Value}.</p>
