@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    <nav class="navbar m-4" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <p class="navbar-item is-size-3 has-text-rgb(9,189,11)">Bust A Movie</p>
+        </div>
   <nav class="navbar m-4" role="navigation" aria-label="main navigation">
     
     <div class="navbar-brand">
@@ -55,6 +59,64 @@
           
           So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile, gather your popcorn, and let's "bust a movie" night together! </p>
         </div>
+      </nav>
+      <main>
+        <!-- Main container -->
+        <div id="searchForMovie" class="box has-text-centered section is-medium has-background-black">
+            <p class="is-size-3">Use the search bar below to find a movie!</p>
+            <div class="box m-6 has-background-dark columns is-justify-content-center">
+            <div  class="field has-addons is-justify-content-center box column is-6 has-background-light is-align-items-center">
+                <p class="control">
+                  <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
+                </p>
+                <p class="control">
+                  <button id="searchButton" class="button">
+                    Search
+                  </button>
+                </p>
+              </div>
+            </div>
+        </div>
+
+        <div id="favMovies" class="section has-background-black columns">
+
+            <div class="column">
+                <p>Spiderman: Across the Spider-Verse</p>
+                <a href="./assets/images/spider-man.jpg">
+                    <img src="assets/images/spider-man.jpg" alt="movie poster">
+                </a>
+            </div>
+            
+            <div class="column">
+                <p>Avengers: Endgame</p>
+                <a href="./assets/images/avengers.jpg">
+                    <img src="assets/images/avengers.jpg" alt="movie poster">
+                </a>
+            </div>
+            <div class="column">
+                <p>Mad Max: Fury Road</p>
+                <a href="./assets/images/mad-max.jpg">
+                    <img src="assets/images/mad-max.jpg" alt="movie poster">
+                </a>
+            </div>
+            <div class="column">
+                <p>Peaky Blinders</p>
+                <a href="./assets/images/peaky-blinders.jpg">
+                    <img src="assets/images/peaky-blinders.jpg" alt="movie poster">
+                </a>
+            </div>
+            <div class="column">
+                <p>John Wick</p>
+                <a href="./assets/imag">
+                    <img src="assets/images/John-wick.jpg" alt="movie poster">
+                </a>
+            </div>
+            
+        </div>
+    
+      </main>
+      
+    
       </div>
 
       <div id="displayResults">
