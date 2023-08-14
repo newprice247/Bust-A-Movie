@@ -200,7 +200,24 @@ var showResults = (id) => {
         return response.json();
     })
     .then(data3 => {
+
+        for(i=0;i < data3.sources.length; i++) {
+            $('#streamingBox').append(`
+            <a href=""></a>
+            <p>${data3.sources[i].name}, ${data3.sources[i].type}, ${data3.sources[i].price}, ${data3.sources[i].web_url}, </p>
+        `)
+        }
+        
+
+
+
+
         console.log(data3)
+        console.log(data3.sources)
+        console.log(data3.sources[0].name)
+        console.log(data3.sources[0].type)
+        console.log(data3.sources[0].price)
+        console.log(data3.sources[0].web_url)
     })
 
 }
