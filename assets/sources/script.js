@@ -209,9 +209,3 @@ var showResults = (id) => {
 // {/* <p>Rated: ${data.Rated}</p> */}
 
 
-<<<<<<< HEAD
-console.log('git pull')
-
-console.log (`created branch`)
-=======
->>>>>>> 0d9ccf2a17483a53a99ae0858cf6a60471b22246
