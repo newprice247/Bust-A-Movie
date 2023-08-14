@@ -5,7 +5,20 @@
 
 $('#searchForMovie').hide()
 
+var searchHistory = { search: [] };
 
+function onLoad() {
+  if(localStorage.getItem('history')) {
+    searchHistory = JSON.parse(localStorage.getItem('history'));
+    console.log(searchHistory.search)
+  }
+}
+onLoad()
+
+// function addHistory(dataToSave) {
+//   historyObj.city.push(dataToSave);
+//   localStorage.setItem('history',JSON.stringify(historyObj));
+// }
 //Allows enter key to be pressed to start search
 $("#searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
@@ -41,13 +54,25 @@ $('#about').on('click', function() {
 $('#search').on('click', function() {
     $('#aboutPage').hide()
     $('#searchForMovie').show()
+    showRecentSearches()
 })
+
+var showRecentSearches = () => {
+    for (i = 0; i < 10; i++) {
+        console.log(searchHistory.search[i])
+    }
+
+    }
 
 
 //Search function
 var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
+
+    searchHistory.search.push(title);
+    localStorage.setItem('history',JSON.stringify(searchHistory));
+
     var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&search_value=${title}&search_type=2`;
     
     fetch(watchmodeSearch)
