@@ -10,7 +10,9 @@ var searchHistory = { search: [] };
 function onLoad() {
   if(localStorage.getItem('history')) {
     searchHistory = JSON.parse(localStorage.getItem('history'));
-    console.log(searchHistory.search)
+    for(i=0;i<searchHistory.search.length;i++) {
+        console.log(searchHistory.search[i])
+    }
   }
 }
 onLoad()
