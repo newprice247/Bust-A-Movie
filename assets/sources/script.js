@@ -186,7 +186,7 @@ var showResults = (id) => {
         $('#searchResults').hide()
         $('#yourMovies').hide()
         $('#displayResults').html(`
-        <div id="resultsBox" class="ml-6">
+        <div id="resultsBox">
             <p class="is-size-3 mb-3">${name}</p>
             <img src=${image}${data.poster_path}" alt="Movie Poster">
             <p>Release Date:  ${data.release_date}</p>
