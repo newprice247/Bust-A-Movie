@@ -10,37 +10,26 @@
 </head>
 
 <body>
-    <nav class="navbar m-4" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a href="#">
-            <p class="navbar-item is-size-3 has-text-rgb(9,189,11) homePage">Bust A Movie</p>
-          </a>
-        </div>
-  <!-- <nav class="navbar m-4" role="navigation" aria-label="main navigation"> -->
-    
-    <!-- <div class="navbar-brand">
-      <p class="navbar-item is-size-3 has-text-primary">Bust-A-Movie</p>
-    </div> -->
-    
+  <nav class="navbar m-4" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a href="#">
+        <p class="navbar-item is-size-3 has-text-rgb(9,189,11) homePage">Bust A Movie</p>
+      </a>
+    </div>
+
     <div id="navbar" class="navbar-menu is-active">
-      
+
       <div class="navbar-start has-text-centered">
         <a id="about" class=" navbar-item m-2 is-size-5 is-tab homePage">
           About
         </a>
-        
+        <a id="yourMoviesNav" class=" navbar-item m-2 is-size-5 is-tab homePage">
+          Your Movies
+        </a>
+
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a id="search" class="navbar-link">
-            More
-          </a>
-  
-          <div id="historyDropdown" class="navbar-dropdown">
-            
-          </div>
-         </div> 
         <div class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
           <p class="control">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
@@ -54,161 +43,96 @@
       </div>
     </div>
   </nav>
-  <main>
-    <!-- Main container -->
-    <div id="mainContainer" class="box has-text-centered section is-medium has-background-black">
+  <!-- Main container -->
+  <main id="mainContainer" class="box has-text-centered section is-small has-background-black">
 
+    <!-- Show Results Function replaces the code beginning here -->
 
-      <!-- Show Results Function replaces the code beginning here -->
+    <section id="aboutPage" class="is-size-4 .homePage section">
+      <p>Welcome to Bust-A-Movie, your ultimate movie companion in the digital age! Dive into a world of cinematic
+        excitement as we blend the magic of "bust a move" with the thrill of blockbuster hits. With our cutting-edge
+        APIs, we bring you instant access to a treasure trove of movie information - from plot summaries that will leave
+        you in awe, to cast and crew details that will make you feel like an insider.<br><br>
 
-      <div id="aboutPage">
-        <div class="is-size-4">
-          <p>Welcome to Bust-A-Movie, your ultimate movie companion in the digital age! Dive into a world of cinematic excitement as we blend the magic of "bust a move" with the thrill of blockbuster hits. With our cutting-edge APIs, we bring you instant access to a treasure trove of movie information - from plot summaries that will leave you in awe, to cast and crew details that will make you feel like an insider.
+        But that's not all! Bust-A-Movie takes your movie night to the next level by seamlessly integrating streaming
+        data. Say goodbye to endless scrolling and hello to instant gratification - with a single click, discover
+        exactly where to stream the movies you're searching for. Whether it's the latest Hollywood sensation or a hidden
+        gem from across the globe, we've got your streaming desires covered.<br><br>
 
-          But that's not all! Bust-A-Movie takes your movie night to the next level by seamlessly integrating streaming data. Say goodbye to endless scrolling and hello to instant gratification - with a single click, discover exactly where to stream the movies you're searching for. Whether it's the latest Hollywood sensation or a hidden gem from across the globe, we've got your streaming desires covered.
-          
-          So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile, gather your popcorn, and let's "bust a movie" night together! </p>
-        </div>
-      </nav>
-      <main>
-        <!-- Main container -->
-        <div id="searchForMovie" class="box has-text-centered section is-medium has-background-black">
-            <p class="is-size-3">Use the search bar below to find a movie!</p>
-            <div class="box m-6 has-background-dark columns is-justify-content-center">
-            <div  class="field has-addons is-justify-content-center box column is-6 has-background-light is-align-items-center">
-                <p class="control">
-                  <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
-                </p>
-                <p class="control">
-                  <button id="searchButton" class="button">
-                    Search
-                  </button>
-                </p>
-              </div>
-            </div>
-        </div>
+        So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile,
+        gather your popcorn, and let's "bust a movie" night together! </p>
+    </section>
 
+    <section id="searchForMovie" class="box has-text-centered section is-medium has-background-black">
+      <!-- The search results will append here -->
+    </section>
 
+    <section id="yourMovies">
+      <div>
+        <p class="is-size-3 has-text-primary mb-6">
+          Recently Viewed Movies
+        </p>
+      </div>
+      <div id="recentSearches" class="is-flex-wrap-wrap columns is-justify-content-space-evenly">
 
-        
-
-
-
-        <div id="favMovies" class="section has-background-black columns">
-
-            <div id="569094" class="column favMovieBox">
-                <p>Spiderman: Across the Spider-Verse</p>
-                <a>
-                    <img src="assets/images/spider-man.jpg" alt="movie poster">
-                </a>
-            </div>
-            
-            <div id="299534" class="column favMovieBox">
-                <p>Avengers: Endgame</p>
-                <a>
-                    <img src="assets/images/avengers.jpg" alt="movie poster">
-                </a>
-            </div>
-            <div id="76341" class="column favMovieBox">
-                <p>Mad Max: Fury Road</p>
-                <a>
-                    <img src="assets/images/mad-max.jpg" alt="movie poster">
-                </a>
-            </div>
-            <div id="545609" class="column favMovieBox">
-                <p>Extraction</p>
-                <a>
-                    <img src="https://cdn.watchmode.com/posters/01505741_poster_w185.jpg" alt="movie poster">
-                </a>
-            </div>
-            <div id="245891" class="column favMovieBox">
-                <p>John Wick</p>
-                <a>
-                    <img src="assets/images/John-wick.jpg" alt="movie poster">
-                </a>
-            </div>
-            
-        </div>
-    
-      </main>
+      </div>
       
-    
-      </div>
+      <!-- A list of the user's recent searches display here -->
+    </section>
 
-      <div id="displayResults">
-        <!-- <p class="is-size-3">Use the search bar below to find a movie!</p>
-        <div
-          class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
-          <p class="control is-expanded">
-            <input id="searchBar" class="searchBar input" type="text" placeholder="Title of Movie or Show">
-          </p>
-          <p class="control">
-            <button id="searchButton" class="searchButton button">
-              Search
-            </button>
-          </p> -->
-
-        <!-- </div> -->
-      </div>
-      <!-- Show Results Function end of code -->
-
-      <div id="searchResults" class="has-background-light is-flex-wrap-wrap columns is-justify-content-space-evenly">
-
-       
-
-
-        <!-- Search Results will show up here -->
-
-
-      </div>
-    </div>
-
-    <!-- <div id="favMovies" class="section has-background-primary columns">
-
-      <div class="column">
+    <section id="favMovies" class="section has-background-black columns">
+      
+      <div id="569094" class="column favMovieBox">
         <p>Spiderman: Across the Spider-Verse</p>
-        <a href="">
-          <img src="" alt="">
+        <a>
+          <img src="assets/images/spider-man.jpg" alt="movie poster">
         </a>
       </div>
 
-      <div class="column">
+      <div id="299534" class="column favMovieBox">
         <p>Avengers: Endgame</p>
-        <a href="">
-          <img src="" alt="">
+        <a>
+          <img src="assets/images/avengers.jpg" alt="movie poster">
         </a>
       </div>
-      <div class="column">
+      <div id="76341" class="column favMovieBox">
         <p>Mad Max: Fury Road</p>
-        <a href="">
-          <img src="" alt="">
+        <a>
+          <img src="assets/images/mad-max.jpg" alt="movie poster">
         </a>
       </div>
-      <div class="column">
-        <p>Peaky Blinders</p>
-        <a href="">
-          <img src="" alt="">
+      <div id="545609" class="column favMovieBox">
+        <p>Extraction</p>
+        <a>
+          <img src="https://image.tmdb.org/t/p/w300//nygOUcBKPHFTbxsYRFZVePqgPK6.jpg" alt="movie poster">
         </a>
       </div>
-      <div class="column">
+      <div id="245891" class="column favMovieBox">
         <p>John Wick</p>
-        <a href="">
-          <img src="" alt="">
+        <a>
+          <img src="assets/images/John-wick.jpg" alt="movie poster">
         </a>
       </div>
+    </section>
 
-    </div> -->
-    <div id="streamingBox">
-      
-    </div>
+    <section id="resultsPage" class="columns">
+      <div id="displayRatings" class="column p-5">
+        <!-- Review websites and ratings will append here -->
+      </div>
+      <div id="displayResults" class="column">
+        <!-- Movie Poster and info will append here -->
+      </div>
+      <div id="streamingBox" class="column p-5">
+        <!-- Streaming Services will append here -->
+      </div>
+    </section>
+
+    <section id="searchResults" class="has-background-light is-flex-wrap-wrap columns is-justify-content-space-evenly">
+      <!-- Search Results will show up here -->
+    </section>
   </main>
-
-  <div id="recentSearches">
-
-  </div>
-
-
 </body>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
   crossorigin="anonymous"></script>
 <script src="./assets/sources/script.js"></script>

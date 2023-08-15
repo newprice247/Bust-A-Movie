@@ -5,28 +5,31 @@
 
 $('#searchForMovie').hide()
 
-var searchHistory = { search: [], id:[] };
+var viewHistory = { search: [], id:[], poster: [] };
 
 function onLoad() {
   if(localStorage.getItem('history')) {
-    searchHistory = JSON.parse(localStorage.getItem('history'));
-    console.log(searchHistory.search)
-    for(i = 0; i < searchHistory.search.length; i++) {
-        $('#historyDropdown').append(`
-            <a class="recentSearchItem navbar-item">
-                ${searchHistory.search[i]}
-            </a>
+    viewHistory = JSON.parse(localStorage.getItem('history'));
+    console.log(viewHistory.search)
+    for(i = 0; i < viewHistory.search.length; i++) {
+        $('#recentSearches').append(`
+
+            <div>
+                <p class="navbar-item has-text-primary is-justify-content-center is-size-4">
+                    ${viewHistory.search[i]}
+                </p>
+                <a>
+                    <img  id="${viewHistory.id[i]}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${viewHistory.poster[i]}" alt="${viewHistory.search[i]}}">
+                </a>
+            </div>
             `)
-}
-
-$('.recentSearchItem').on('click', function(event) {
-    var id = $(this).text()
-    movieSearch(id)
-    event.stopPropagation()
-})
-
-    
+        } 
+  } else {
+    $('#recentSearches').append(`
+        <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
+    `)
   }
+  $('#yourMovies').hide()
 }
 onLoad()
 
@@ -59,32 +62,36 @@ $('#searchButton').on('click', function() {
     $('#searchResults').show()
     $('#streamingBox').html("")
     $('#streamingBox').hide()
+    $('#favMovies').hide()
+
 })
 
 //Event listener for the navbar buttons
 $('.homePage').on('click', function() {
     $('#aboutPage').show()
+    $('#favMovies').show()
     $('#searchResults').hide()
-    $('#streamingBox').hide()
     $('#searchForMovie').hide()
-    $('#displayResults').hide()
+    $('#resultsPage').hide()
+    $('#yourMovies').hide()
 })
 
-$('#search').on('click', function() {
+$('#yourMoviesNav').on('click', function() {
     $('#aboutPage').hide()
-    $('#searchForMovie').show()
-    showRecentSearches()
+    $('#yourMovies').show()
+    $('#favMovies').hide()
 })
 
-// var showRecentSearches = () => {
-//     for (i = 0; i < 10; i++) {
-//         console.log(searchHistory.search[i])
-//     }
-//     }
+$('.recentSearchItem').on('click', function(event) {
+    var id = $(this).attr('id')
+    showResults(id)
+    event.stopPropagation()
+})
 
 $('.favMovieBox').on('click', function() {
     $('#displayResults').html("")
     $('#aboutPage').hide()
+    $('#favMovies').hide()
     var id = $(this).attr('id')
     showResults(id)
 })
@@ -101,19 +108,8 @@ var movieSearch = (title) => {
             return response.json()
         })
         .then(searchData => {
-
-            if (searchHistory.search.includes(title) === false) {
-                searchHistory.search.push(title);
-                localStorage.setItem('history',JSON.stringify(searchHistory))
-
-                $('#historyDropdown').append(`
-                <a class="navbar-item">
-                  ${searchHistory.search}
-                </a>
-                `)
-            }
-        ;
-
+            $('#yourMovies').hide()
+            $('#resultsPage').hide()
             console.log(searchData)
             var searchResults = (searchData.results)
             console.log(searchResults)
@@ -165,7 +161,30 @@ var showResults = (id) => {
         return response.json()
     })
     .then(data => {
-        $('#displayResults').show()
+        var image = '"https://image.tmdb.org/t/p/w300/'
+        var name = data.original_title;
+        var poster = data.poster_path;
+        var id = data.id
+        if (viewHistory.search.includes(name) === false) {
+            viewHistory.search.push(name);
+            viewHistory.poster.push(poster);
+            viewHistory.id.push(id)
+            localStorage.setItem('history',JSON.stringify(viewHistory))
+
+            $('#recentSearches').append(`
+            <div>
+                <p class="recentSearchItem navbar-item has-text-primary">
+                    ${name}
+                </p>
+                <a>
+                    <img  id="${id}" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
+                </a>
+            </div>
+            `)
+        }
+
+
+        $('#resultsPage').show()
         var imdbId = data.imdb_id
         console.log(imdbId)
         console.log(data)
@@ -176,16 +195,13 @@ var showResults = (id) => {
             console.log(genres)
         }
         $('#searchResults').hide()
-        var image = '"https://image.tmdb.org/t/p/w300/'
-        var name = data.original_title;
-        
+        $('#yourMovies').hide()
         $('#displayResults').html(`
-        <p class="is-size-3">It worked!</p>
-        <div id="resultsBox" class="box">
-            <p>Title: ${name}</p>
-            <p>Year:  ${data.release_date}</p>
-            <p>Runtime: ${data.runtime}</p>
+        <div id="resultsBox" class="box is-size-5">
+            <p class="is-size-4 m-6">${name}</p>
             <img src=${image}${data.poster_path}" alt="Movie Poster">
+            <p>Release Date:  ${data.release_date}</p>
+            <p>Runtime: ${data.runtime} minutes</p>
             <p>Genre: ${genres}</p>
         </div>
         `)
@@ -209,22 +225,28 @@ var showResults = (id) => {
         console.log(data2);
         console.log(data2.Title);
         console.log(data2.Plot);
-
-        $('#resultsBox').append(`
-        <div id="ratingsBox">
-            <p>Ratings:</p>
-            <p>Rotten Tomatoes: ${data2.Ratings[1].Value}.</p>
-            <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
-                <img src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
-            </a>
-            <p>IMDb: ${data2.Ratings[0].Value}</p>
-            <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
-                <img src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
-            </a>
-            <p>Metacritic: ${data2.Ratings[2].Value}</p>
-                <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
-                        <img src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+        $('#displayRatings').html('')
+        $('#displayRatings').append(`
+        <div id="ratingsBox" class="is-size-4">
+            <p class="is-size-3 mb-3">Ratings:</p>
+            <div>
+                <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
+                    <img class="mt-6"src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
                 </a>
+                <p>${data2.Ratings[1].Value}</p>
+            </div>
+            <div>
+                <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
+                    <img class="mt-6" src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
+                </a>
+                <p>${data2.Ratings[0].Value}</p>
+            </div>
+            <div>
+                <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
+                        <img class="mt-6" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+                </a>
+                <p>${data2.Ratings[2].Value}</p>
+            </div>
         </div>
         `)
 
@@ -234,9 +256,12 @@ var showResults = (id) => {
         return response.json();
     })
     .then(data3 => {
-        $
-        $('#streamingBox').show()
         
+        $('#streamingBox').show()
+        $('#streamingBox').html('')
+        $('#streamingBox').append(`
+            <p class="is-size-3 mb-3">Available Streaming Services:</p>
+        `)
         var streamingArr = {title:[], url:[]}
         for(i = 0;i < data3.sources.length; i++) {
             if (streamingArr.title.includes(data3.sources[i].name) === false) {
@@ -250,7 +275,7 @@ var showResults = (id) => {
             console.log('streaming Array item', streamingArr.title[i])
             console.log(streamingArr.url[i])
             $('#streamingBox').append(`
-                <div class="m-6 is-size-4">
+                <div class="m-5 is-size-4">
                 <a target="_blank" href="${streamingArr.url[i]}">${streamingArr.title[i]}</a>
                 </div>
             `)
