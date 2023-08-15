@@ -1,18 +1,31 @@
 //API keys
 // var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
 // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
-// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=b3783de294fab53f3b5f107706f3d99e'
+// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'
 
 $('#searchForMovie').hide()
 
-var searchHistory = { search: [] };
+var searchHistory = { search: [], id:[] };
 
 function onLoad() {
   if(localStorage.getItem('history')) {
     searchHistory = JSON.parse(localStorage.getItem('history'));
-    for(i=0;i<searchHistory.search.length;i++) {
-        console.log(searchHistory.search[i])
-    }
+    console.log(searchHistory.search)
+    for(i = 0; i < searchHistory.search.length; i++) {
+        $('#historyDropdown').append(`
+            <a class="recentSearchItem navbar-item">
+                ${searchHistory.search[i]}
+            </a>
+            `)
+}
+
+$('.recentSearchItem').on('click', function(event) {
+    var id = $(this).text()
+    movieSearch(id)
+    event.stopPropagation()
+})
+
+    
   }
 }
 onLoad()
@@ -44,11 +57,15 @@ $('#searchButton').on('click', function() {
     $('#displayResults').html("")
     $('#aboutPage').hide()
     $('#searchResults').show()
+    $('#streamingBox').html("")
+    $('#streamingBox').hide()
 })
 
 //Event listener for the navbar buttons
-$('#about').on('click', function() {
+$('.homePage').on('click', function() {
     $('#aboutPage').show()
+    $('#searchResults').hide()
+    $('#streamingBox').hide()
     $('#searchForMovie').hide()
     $('#displayResults').hide()
 })
@@ -59,29 +76,44 @@ $('#search').on('click', function() {
     showRecentSearches()
 })
 
-var showRecentSearches = () => {
-    for (i = 0; i < 10; i++) {
-        console.log(searchHistory.search[i])
-    }
+// var showRecentSearches = () => {
+//     for (i = 0; i < 10; i++) {
+//         console.log(searchHistory.search[i])
+//     }
+//     }
 
-    }
-
+$('.favMovieBox').on('click', function() {
+    $('#displayResults').html("")
+    $('#aboutPage').hide()
+    var id = $(this).attr('id')
+    showResults(id)
+})
 
 //Search function
 var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
 
-    searchHistory.search.push(title);
-    localStorage.setItem('history',JSON.stringify(searchHistory));
-
-    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&search_value=${title}&search_type=2`;
+    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&search_value=${title}&search_type=2`;
     
     fetch(watchmodeSearch)
         .then(response => {
             return response.json()
         })
         .then(searchData => {
+
+            if (searchHistory.search.includes(title) === false) {
+                searchHistory.search.push(title);
+                localStorage.setItem('history',JSON.stringify(searchHistory))
+
+                $('#historyDropdown').append(`
+                <a class="navbar-item">
+                  ${searchHistory.search}
+                </a>
+                `)
+            }
+        ;
+
             console.log(searchData)
             var searchResults = (searchData.results)
             console.log(searchResults)
@@ -196,13 +228,33 @@ var showResults = (id) => {
         </div>
         `)
 
-        return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`)
+        return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&append_to_response=sources`)
     })
     .then(response => {
         return response.json();
     })
     .then(data3 => {
-        console.log(data3)
+        $
+        $('#streamingBox').show()
+        
+        var streamingArr = {title:[], url:[]}
+        for(i = 0;i < data3.sources.length; i++) {
+            if (streamingArr.title.includes(data3.sources[i].name) === false) {
+                streamingArr.title.push(data3.sources[i].name);
+                console.log('title added', i)
+                streamingArr.url.push(data3.sources[i].web_url);
+                console.log('total loops', i, streamingArr)
+            }
+        }
+        for (i = 0; i < streamingArr.title.length; i++) {
+            console.log('streaming Array item', streamingArr.title[i])
+            console.log(streamingArr.url[i])
+            $('#streamingBox').append(`
+                <div class="m-6 is-size-4">
+                <a target="_blank" href="${streamingArr.url[i]}">${streamingArr.title[i]}</a>
+                </div>
+            `)
+        }
     })
 
 }
@@ -210,4 +262,10 @@ var showResults = (id) => {
 
 // {/* <p>Rated: ${data.Rated}</p> */}
 
-
+// let arr = ["apple", "mango", "apple",
+//           "orange", "mango", "mango"];
+  
+// function removeDuplicates(arr) {
+//     return arr.filter((item, index) => arr.indexOf(item) === index);
+// }
+// console.log(removeDuplicates(arr));

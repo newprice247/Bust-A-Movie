@@ -10,24 +10,37 @@
 </head>
 
 <body>
-  <nav class="navbar m-4" role="navigation" aria-label="main navigation">
+    <nav class="navbar m-4" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a href="#">
+            <p class="navbar-item is-size-3 has-text-rgb(9,189,11) homePage">Bust A Movie</p>
+          </a>
+        </div>
+  <!-- <nav class="navbar m-4" role="navigation" aria-label="main navigation"> -->
     
-    <div class="navbar-brand">
+    <!-- <div class="navbar-brand">
       <p class="navbar-item is-size-3 has-text-primary">Bust-A-Movie</p>
-    </div>
+    </div> -->
     
     <div id="navbar" class="navbar-menu is-active">
       
       <div class="navbar-start has-text-centered">
-        <a id="about" class=" navbar-item m-2 is-size-5 is-tab">
+        <a id="about" class=" navbar-item m-2 is-size-5 is-tab homePage">
           About
         </a>
-        <a id="search" class="navbar-item m-2 is-size-5">
-          Recent Searches
-        </a>
+        
       </div>
 
       <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a id="search" class="navbar-link">
+            More
+          </a>
+  
+          <div id="historyDropdown" class="navbar-dropdown">
+            
+          </div>
+         </div> 
         <div class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
           <p class="control">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
@@ -43,7 +56,8 @@
   </nav>
   <main>
     <!-- Main container -->
-    <div id="mainContainer" class="box has-text-centered section is-medium has-background-primary">
+    <div id="mainContainer" class="box has-text-centered section is-medium has-background-black">
+
 
       <!-- Show Results Function replaces the code beginning here -->
 
@@ -55,6 +69,70 @@
           
           So why wait? Embark on a cinematic journey like never before with Bust-A-Movie. Unleash your inner cinephile, gather your popcorn, and let's "bust a movie" night together! </p>
         </div>
+      </nav>
+      <main>
+        <!-- Main container -->
+        <div id="searchForMovie" class="box has-text-centered section is-medium has-background-black">
+            <p class="is-size-3">Use the search bar below to find a movie!</p>
+            <div class="box m-6 has-background-dark columns is-justify-content-center">
+            <div  class="field has-addons is-justify-content-center box column is-6 has-background-light is-align-items-center">
+                <p class="control">
+                  <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
+                </p>
+                <p class="control">
+                  <button id="searchButton" class="button">
+                    Search
+                  </button>
+                </p>
+              </div>
+            </div>
+        </div>
+
+
+
+        
+
+
+
+        <div id="favMovies" class="section has-background-black columns">
+
+            <div id="569094" class="column favMovieBox">
+                <p>Spiderman: Across the Spider-Verse</p>
+                <a>
+                    <img src="assets/images/spider-man.jpg" alt="movie poster">
+                </a>
+            </div>
+            
+            <div id="299534" class="column favMovieBox">
+                <p>Avengers: Endgame</p>
+                <a>
+                    <img src="assets/images/avengers.jpg" alt="movie poster">
+                </a>
+            </div>
+            <div id="76341" class="column favMovieBox">
+                <p>Mad Max: Fury Road</p>
+                <a>
+                    <img src="assets/images/mad-max.jpg" alt="movie poster">
+                </a>
+            </div>
+            <div id="545609" class="column favMovieBox">
+                <p>Extraction</p>
+                <a>
+                    <img src="https://cdn.watchmode.com/posters/01505741_poster_w185.jpg" alt="movie poster">
+                </a>
+            </div>
+            <div id="245891" class="column favMovieBox">
+                <p>John Wick</p>
+                <a>
+                    <img src="assets/images/John-wick.jpg" alt="movie poster">
+                </a>
+            </div>
+            
+        </div>
+    
+      </main>
+      
+    
       </div>
 
       <div id="displayResults">
@@ -76,6 +154,8 @@
 
       <div id="searchResults" class="has-background-light is-flex-wrap-wrap columns is-justify-content-space-evenly">
 
+       
+
 
         <!-- Search Results will show up here -->
 
@@ -83,7 +163,7 @@
       </div>
     </div>
 
-    <div id="favMovies" class="section has-background-primary columns">
+    <!-- <div id="favMovies" class="section has-background-primary columns">
 
       <div class="column">
         <p>Spiderman: Across the Spider-Verse</p>
@@ -117,9 +197,15 @@
         </a>
       </div>
 
+    </div> -->
+    <div id="streamingBox">
+      
     </div>
-
   </main>
+
+  <div id="recentSearches">
+
+  </div>
 
 
 </body>
