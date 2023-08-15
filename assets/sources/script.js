@@ -42,11 +42,15 @@ $('#searchButton').on('click', function() {
     $('#displayResults').html("")
     $('#aboutPage').hide()
     $('#searchResults').show()
+    $('#streamingBox').html("")
+    $('#streamingBox').hide()
 })
 
 //Event listener for the navbar buttons
-$('#about').on('click', function() {
+$('.homePage').on('click', function() {
     $('#aboutPage').show()
+    $('#searchResults').hide()
+    $('#streamingBox').hide()
     $('#searchForMovie').hide()
     $('#displayResults').hide()
 })
@@ -57,20 +61,25 @@ $('#search').on('click', function() {
     showRecentSearches()
 })
 
-var showRecentSearches = () => {
-    for (i = 0; i < 10; i++) {
-        console.log(searchHistory.search[i])
-    }
+// var showRecentSearches = () => {
+//     for (i = 0; i < 10; i++) {
+//         console.log(searchHistory.search[i])
+//     }
+//     }
 
-    }
-
+$('.favMovieBox').on('click', function() {
+    $('#displayResults').html("")
+    $('#aboutPage').hide()
+    var id = $(this).attr('id')
+    showResults(id)
+})
 
 //Search function
 var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
-
-    searchHistory.search.push(title);
+    if (searchHistory.search.includes(title) === false) searchHistory.search.push(title);
+    // searchHistory.search.push(title);
     localStorage.setItem('history',JSON.stringify(searchHistory));
 
     var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&search_value=${title}&search_type=2`;
@@ -200,24 +209,27 @@ var showResults = (id) => {
         return response.json();
     })
     .then(data3 => {
-
-        for(i=0;i < data3.sources.length; i++) {
-            $('#streamingBox').append(`
-            <a href=""></a>
-            <p>${data3.sources[i].name}, ${data3.sources[i].type}, ${data3.sources[i].price}, ${data3.sources[i].web_url}, </p>
-        `)
-        }
+        $
+        $('#streamingBox').show()
         
-
-
-
-
-        console.log(data3)
-        console.log(data3.sources)
-        console.log(data3.sources[0].name)
-        console.log(data3.sources[0].type)
-        console.log(data3.sources[0].price)
-        console.log(data3.sources[0].web_url)
+        var streamingArr = {title:[], url:[]}
+        for(i = 0;i < data3.sources.length; i++) {
+            if (streamingArr.title.includes(data3.sources[i].name) === false) {
+                streamingArr.title.push(data3.sources[i].name);
+                console.log('title added', i)
+                streamingArr.url.push(data3.sources[i].web_url);
+                console.log('total loops', i, streamingArr)
+            }
+        }
+        for (i = 0; i < streamingArr.title.length; i++) {
+            console.log('streaming Array item', streamingArr.title[i])
+            console.log(streamingArr.url[i])
+            $('#streamingBox').append(`
+                <div class="m-6 is-size-4">
+                <a target="_blank" href="${streamingArr.url[i]}">${streamingArr.title[i]}</a>
+                </div>
+            `)
+        }
     })
 
 }
@@ -225,4 +237,10 @@ var showResults = (id) => {
 
 // {/* <p>Rated: ${data.Rated}</p> */}
 
-
+// let arr = ["apple", "mango", "apple",
+//           "orange", "mango", "mango"];
+  
+// function removeDuplicates(arr) {
+//     return arr.filter((item, index) => arr.indexOf(item) === index);
+// }
+// console.log(removeDuplicates(arr));
