@@ -1,11 +1,11 @@
 //API keys
 // var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
 // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
-// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=b3783de294fab53f3b5f107706f3d99e'
+// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'
 
 $('#searchForMovie').hide()
 
-var searchHistory = { search: [], id: [] };
+var searchHistory = { search: [], id:[] };
 
 function onLoad() {
   if(localStorage.getItem('history')) {
@@ -70,7 +70,11 @@ $('.homePage').on('click', function() {
     $('#displayResults').hide()
 })
 
-// 
+$('#search').on('click', function() {
+    $('#aboutPage').hide()
+    $('#searchForMovie').show()
+    showRecentSearches()
+})
 
 // var showRecentSearches = () => {
 //     for (i = 0; i < 10; i++) {
@@ -90,7 +94,7 @@ var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
 
-    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&search_value=${title}&search_type=2`;
+    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&search_value=${title}&search_type=2`;
     
     fetch(watchmodeSearch)
         .then(response => {
@@ -224,7 +228,7 @@ var showResults = (id) => {
         </div>
         `)
 
-        return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`)
+        return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&append_to_response=sources`)
     })
     .then(response => {
         return response.json();
