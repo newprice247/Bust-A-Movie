@@ -5,12 +5,27 @@
 
 $('#searchForMovie').hide()
 
-var searchHistory = { search: [] };
+var searchHistory = { search: [], id: [] };
 
 function onLoad() {
   if(localStorage.getItem('history')) {
     searchHistory = JSON.parse(localStorage.getItem('history'));
     console.log(searchHistory.search)
+    for(i = 0; i < searchHistory.search.length; i++) {
+        $('#historyDropdown').append(`
+            <a class="recentSearchItem navbar-item">
+                ${searchHistory.search[i]}
+            </a>
+            `)
+}
+
+$('.recentSearchItem').on('click', function(event) {
+    var id = $(this).text()
+    movieSearch(id)
+    event.stopPropagation()
+})
+
+    
   }
 }
 onLoad()
@@ -55,11 +70,7 @@ $('.homePage').on('click', function() {
     $('#displayResults').hide()
 })
 
-$('#search').on('click', function() {
-    $('#aboutPage').hide()
-    $('#searchForMovie').show()
-    showRecentSearches()
-})
+// 
 
 // var showRecentSearches = () => {
 //     for (i = 0; i < 10; i++) {
@@ -78,9 +89,6 @@ $('.favMovieBox').on('click', function() {
 var movieSearch = (title) => {
     console.log('Search button clicked');
     console.log(title);
-    if (searchHistory.search.includes(title) === false) searchHistory.search.push(title);
-    // searchHistory.search.push(title);
-    localStorage.setItem('history',JSON.stringify(searchHistory));
 
     var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&search_value=${title}&search_type=2`;
     
@@ -89,6 +97,19 @@ var movieSearch = (title) => {
             return response.json()
         })
         .then(searchData => {
+
+            if (searchHistory.search.includes(title) === false) {
+                searchHistory.search.push(title);
+                localStorage.setItem('history',JSON.stringify(searchHistory))
+
+                $('#historyDropdown').append(`
+                <a class="navbar-item">
+                  ${searchHistory.search}
+                </a>
+                `)
+            }
+        ;
+
             console.log(searchData)
             var searchResults = (searchData.results)
             console.log(searchResults)

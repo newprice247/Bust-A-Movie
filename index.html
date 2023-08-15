@@ -28,12 +28,18 @@
         <a id="about" class=" navbar-item m-2 is-size-5 is-tab homePage">
           About
         </a>
-        <a id="search" class="navbar-item m-2 is-size-5">
-          Recent Searches
-        </a>
+        
       </div>
 
       <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a id="search" class="navbar-link">
+            More
+          </a>
+  
+          <div id="historyDropdown" class="navbar-dropdown">
+            
+          </div>
         <div class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
           <p class="control">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
@@ -50,6 +56,7 @@
   <main>
     <!-- Main container -->
     <div id="mainContainer" class="box has-text-centered section is-medium has-background-black">
+
 
       <!-- Show Results Function replaces the code beginning here -->
 
@@ -79,6 +86,12 @@
               </div>
             </div>
         </div>
+
+
+
+        
+
+
 
         <div id="favMovies" class="section has-background-black columns">
 
@@ -140,6 +153,8 @@
 
       <div id="searchResults" class="has-background-light is-flex-wrap-wrap columns is-justify-content-space-evenly">
 
+       
+
 
         <!-- Search Results will show up here -->
 
@@ -186,6 +201,10 @@
       
     </div>
   </main>
+
+  <div id="recentSearches">
+
+  </div>
 
 
 </body>
