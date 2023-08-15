@@ -23,22 +23,13 @@
         <a id="about" class=" navbar-item m-2 is-size-5 is-tab homePage">
           About
         </a>
-        <a id="yourMovies" class=" navbar-item m-2 is-size-5 is-tab homePage">
+        <a id="yourMoviesNav" class=" navbar-item m-2 is-size-5 is-tab homePage">
           Your Movies
         </a>
 
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a id="search" class="navbar-link">
-            More
-          </a>
-
-          <div id="historyDropdown" class="navbar-dropdown">
-
-          </div>
-        </div>
         <div class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
           <p class="control">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
@@ -76,11 +67,21 @@
       <!-- The search results will append here -->
     </section>
 
-    <section id="recentSearches">
+    <section id="yourMovies">
+      <div>
+        <p class="is-size-3 has-text-primary mb-6">
+          Recently Viewed Movies
+        </p>
+      </div>
+      <div id="recentSearches" class="is-flex-wrap-wrap columns is-justify-content-space-evenly">
+
+      </div>
+      
       <!-- A list of the user's recent searches display here -->
     </section>
 
     <section id="favMovies" class="section has-background-black columns">
+      
       <div id="569094" class="column favMovieBox">
         <p>Spiderman: Across the Spider-Verse</p>
         <a>
@@ -103,7 +104,7 @@
       <div id="545609" class="column favMovieBox">
         <p>Extraction</p>
         <a>
-          <img src="https://cdn.watchmode.com/posters/01505741_poster_w185.jpg" alt="movie poster">
+          <img src="https://image.tmdb.org/t/p/w300//nygOUcBKPHFTbxsYRFZVePqgPK6.jpg" alt="movie poster">
         </a>
       </div>
       <div id="245891" class="column favMovieBox">

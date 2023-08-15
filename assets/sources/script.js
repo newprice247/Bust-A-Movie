@@ -13,21 +13,23 @@ function onLoad() {
     console.log(viewHistory.search)
     for(i = 0; i < viewHistory.search.length; i++) {
         $('#recentSearches').append(`
-            <a class="recentSearchItem navbar-item has-text-primary">
-                ${viewHistory.search[i]}
-            </a>
+
+            <div>
+                <p class="navbar-item has-text-primary is-justify-content-center is-size-4">
+                    ${viewHistory.search[i]}
+                </p>
+                <a>
+                    <img  id="${viewHistory.id[i]}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${viewHistory.poster[i]}" alt="${viewHistory.search[i]}}">
+                </a>
+            </div>
             `)
-}
-
-$('.recentSearchItem').on('click', function(event) {
-    var id = $(this).attr('id')
-    movieSearch(id)
-    event.stopPropagation()
-})
-
-    
+        } 
+  } else {
+    $('#recentSearches').append(`
+        <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
+    `)
   }
-  $('#recentSearches').hide()
+  $('#yourMovies').hide()
 }
 onLoad()
 
@@ -67,23 +69,24 @@ $('#searchButton').on('click', function() {
 //Event listener for the navbar buttons
 $('.homePage').on('click', function() {
     $('#aboutPage').show()
+    $('#favMovies').show()
     $('#searchResults').hide()
-    $('#streamingBox').hide()
     $('#searchForMovie').hide()
-    $('#displayResults').hide()
-    $('#recentSearches').hide()
+    $('#resultsPage').hide()
+    $('#yourMovies').hide()
 })
 
-$('#yourMovies').on('click', function() {
+$('#yourMoviesNav').on('click', function() {
     $('#aboutPage').hide()
-    $('#recentSearches').show()
+    $('#yourMovies').show()
+    $('#favMovies').hide()
 })
 
-// var showRecentSearches = () => {
-//     for (i = 0; i < 10; i++) {
-//         console.log(viewHistory.search[i])
-//     }
-//     }
+$('.recentSearchItem').on('click', function(event) {
+    var id = $(this).attr('id')
+    showResults(id)
+    event.stopPropagation()
+})
 
 $('.favMovieBox').on('click', function() {
     $('#displayResults').html("")
@@ -105,19 +108,8 @@ var movieSearch = (title) => {
             return response.json()
         })
         .then(searchData => {
-
-            if (viewHistory.search.includes(title) === false) {
-                viewHistory.search.push(title);
-                localStorage.setItem('history',JSON.stringify(viewHistory))
-
-                $('#recentSearches').append(`
-                <a class="navbar-item">
-                  ${viewHistory.search}
-                </a>
-                `)
-            }
-        ;
-
+            $('#yourMovies').hide()
+            $('#resultsPage').hide()
             console.log(searchData)
             var searchResults = (searchData.results)
             console.log(searchResults)
@@ -169,7 +161,30 @@ var showResults = (id) => {
         return response.json()
     })
     .then(data => {
-        $('#displayResults').show()
+        var image = '"https://image.tmdb.org/t/p/w300/'
+        var name = data.original_title;
+        var poster = data.poster_path;
+        var id = data.id
+        if (viewHistory.search.includes(name) === false) {
+            viewHistory.search.push(name);
+            viewHistory.poster.push(poster);
+            viewHistory.id.push(id)
+            localStorage.setItem('history',JSON.stringify(viewHistory))
+
+            $('#recentSearches').append(`
+            <div>
+                <p class="recentSearchItem navbar-item has-text-primary">
+                    ${name}
+                </p>
+                <a>
+                    <img  id="${id}" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
+                </a>
+            </div>
+            `)
+        }
+
+
+        $('#resultsPage').show()
         var imdbId = data.imdb_id
         console.log(imdbId)
         console.log(data)
@@ -180,10 +195,7 @@ var showResults = (id) => {
             console.log(genres)
         }
         $('#searchResults').hide()
-        $('#recentSearches').hide()
-        var image = '"https://image.tmdb.org/t/p/w300/'
-        var name = data.original_title;
-        
+        $('#yourMovies').hide()
         $('#displayResults').html(`
         <div id="resultsBox" class="box is-size-5">
             <p class="is-size-4 m-6">${name}</p>
@@ -213,7 +225,7 @@ var showResults = (id) => {
         console.log(data2);
         console.log(data2.Title);
         console.log(data2.Plot);
-
+        $('#displayRatings').html('')
         $('#displayRatings').append(`
         <div id="ratingsBox" class="is-size-4">
             <p class="is-size-3 mb-3">Ratings:</p>
@@ -246,7 +258,10 @@ var showResults = (id) => {
     .then(data3 => {
         
         $('#streamingBox').show()
-        
+        $('#streamingBox').html('')
+        $('#streamingBox').append(`
+            <p class="is-size-3 mb-3">Available Streaming Services:</p>
+        `)
         var streamingArr = {title:[], url:[]}
         for(i = 0;i < data3.sources.length; i++) {
             if (streamingArr.title.includes(data3.sources[i].name) === false) {
