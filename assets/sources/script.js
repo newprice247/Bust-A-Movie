@@ -10,7 +10,6 @@ var viewHistory = { search: [], id:[], poster: [] };
 function onLoad() {
   if(localStorage.getItem('history')) {
     viewHistory = JSON.parse(localStorage.getItem('history'));
-    console.log(viewHistory.search)
     for(i = 0; i < viewHistory.search.length; i++) {
         $('#recentSearches').append(`
 
@@ -26,7 +25,9 @@ function onLoad() {
         } 
   } else {
     $('#recentSearches').append(`
+    <div id="noRecentSearches">
         <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
+    </div>
     `)
   }
   $('#yourMovies').hide()
@@ -41,7 +42,6 @@ onLoad()
 $("#searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
         $("#searchButton").click();
-        console.log('Enter key pressed')
     }
 });
 
@@ -51,12 +51,10 @@ $('#searchButton').on('click', function() {
     var title = $('#searchBar').val()
     //If statement for the search field being empty when the button is clicked
     if ($('#searchBar').val() === "") {
-        console.log('Please enter a movie title')
         return
     }
     //calls the movieSearch function and searches for the title of the movie
     movieSearch(title)
-    console.log('search button clicked')
     $('#displayResults').html("")
     $('#aboutPage').hide()
     $('#searchResults').show()
@@ -84,6 +82,7 @@ $('#yourMoviesNav').on('click', function() {
 
 $('.recentSearchItem').on('click', function(event) {
     var id = $(this).attr('id')
+    console.log(id)
     showResults(id)
     event.stopPropagation()
 })
@@ -98,8 +97,6 @@ $('.favMovieBox').on('click', function() {
 
 //Search function
 var movieSearch = (title) => {
-    console.log('Search button clicked');
-    console.log(title);
 
     var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&search_value=${title}&search_type=2`;
     
@@ -108,12 +105,10 @@ var movieSearch = (title) => {
             return response.json()
         })
         .then(searchData => {
+            $('#searchResults').html(``)
             $('#yourMovies').hide()
             $('#resultsPage').hide()
-            console.log(searchData)
             var searchResults = (searchData.results)
-            console.log(searchResults)
-            $('#searchResults').html(``)
             for (var i=0; i<searchResults.length; i++){
                 var poster = searchResults[i].image_url
                 if (poster == undefined) {
@@ -125,7 +120,6 @@ var movieSearch = (title) => {
                     console.log('error no id')
                     continue;
                 }
-                console.log(searchResults[i].tmdb_id)
                 $('#searchResults').append(`
                     <div id="${movieId}" class="box p-3 m-3">
                         <p>${searchResults[i].name}</p>
@@ -138,19 +132,11 @@ var movieSearch = (title) => {
             
             $('.resultButton').on('click', function() {
                 var id = $(this).parents('.box').attr('id')
-                console.log(id)
-                console.log('Search Result Button clicked')
                 showResults(id)
             })
         })
         .catch(error => {
             console.log(error)
-            $('.resultButton').on('click', function() {
-                var id = $(this).parents('.column').attr('id')
-                console.log(id)
-                console.log('Search Result Button clicked')
-                showResults(id)
-            })
         })
 }  
 
@@ -170,29 +156,32 @@ var showResults = (id) => {
             viewHistory.poster.push(poster);
             viewHistory.id.push(id)
             localStorage.setItem('history',JSON.stringify(viewHistory))
-
+            $('#noRecentSearches').hide()
             $('#recentSearches').append(`
             <div>
-                <p class="recentSearchItem navbar-item has-text-primary">
+                <p class="navbar-item has-text-primary is-justify-content-center is-size-4">
                     ${name}
                 </p>
                 <a>
-                    <img  id="${id}" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
+                    <img id="${id}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
                 </a>
             </div>
             `)
+            $('.recentSearchItem').on('click', function(event) {
+                var id = $(this).attr('id')
+                console.log(id)
+                showResults(id)
+                event.stopPropagation()
+            })
         }
 
 
         $('#resultsPage').show()
         var imdbId = data.imdb_id
-        console.log(imdbId)
-        console.log(data)
         var genres = []
         for (i = 0; i < data.genres.length; i++) {
             genres += data.genres[i].name
             genres += '  '
-            console.log(genres)
         }
         $('#searchResults').hide()
         $('#yourMovies').hide()
@@ -211,20 +200,12 @@ var showResults = (id) => {
         return response.json();
     })
     .then(data2 => {
-        console.log(data2)
         var name = data2.Title
         var newName = name.replace(':', '')
         var nameArr = newName.split(' ')
-        let nameStringRotten = nameArr.join('_').toLowerCase()
-        let nameStringMeta = nameArr.join('-').toLowerCase()
+        var nameStringRotten = nameArr.join('_').toLowerCase()
+        var nameStringMeta = nameArr.join('-').toLowerCase()
 
-        console.log(nameStringRotten)
-        console.log(nameStringMeta)
-        console.log(name)
-        console.log(nameArr)
-        console.log(data2);
-        console.log(data2.Title);
-        console.log(data2.Plot);
         $('#displayRatings').html('')
         $('#displayRatings').append(`
         <div id="ratingsBox" class="is-size-4">
@@ -266,14 +247,10 @@ var showResults = (id) => {
         for(i = 0;i < data3.sources.length; i++) {
             if (streamingArr.title.includes(data3.sources[i].name) === false) {
                 streamingArr.title.push(data3.sources[i].name);
-                console.log('title added', i)
                 streamingArr.url.push(data3.sources[i].web_url);
-                console.log('total loops', i, streamingArr)
             }
         }
         for (i = 0; i < streamingArr.title.length; i++) {
-            console.log('streaming Array item', streamingArr.title[i])
-            console.log(streamingArr.url[i])
             $('#streamingBox').append(`
                 <div class="m-5 is-size-4">
                 <a target="_blank" href="${streamingArr.url[i]}">${streamingArr.title[i]}</a>
