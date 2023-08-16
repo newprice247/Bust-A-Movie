@@ -5,7 +5,7 @@
 
 $('#searchForMovie').hide()
 
-var viewHistory = { search: [], id:[], poster: [] };
+var viewHistory = {search: [], id:[], poster: []};
 
 function onLoad() {
   if(localStorage.getItem('history')) {
