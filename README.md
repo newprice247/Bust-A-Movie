@@ -46,15 +46,19 @@ The goal of this project was to build a film search engine that seeks to improve
 [ Click Here to View Deployed Website](https://newprice247.github.io/Bust-A-Movie/)
 
 
-![Bust-A-Movie Screenshot](assets/images/Capture.PNG)
+![Bust-A-Movie Screenshot](../../projects/Bust-A-Movie/assets/images/Capture2.PNG)
 
 ## Credits
 
-All of the animated icon gifs were sourced from [Flaticon.com](https://www.flaticon.com/free-animated-icons/weather), and the appropriate attribution to the author Freepik is included at the bottom of the Weather Dashboard page.
-
-All weather data was retrieved via API from [Open Weather Map](https://openweathermap.org/forecast5).
+* Watchmode API used for pulling streaming data as well as movie search [Watchmode](https://api.watchmode.com/)
+* TMDb API used for pulling id's for the movies searched as well as poster images [The Movie Database](https://developer.themoviedb.org/docs)
+* OMDb API used for pulling movie rating information [Online Movie Database](https://www.omdbapi.com/)
 
 ## Contact Me
 
-[Nathaniel Price](https://github.com/newprice247) @ Github
-
+### Group Members
+* [Nathaniel Price](https://github.com/newprice247) @ Github
+* [Trishtina Doctor](https://github.com/host4bacteria) @ Github
+* [Walkens Dorismond](https://github.com/walkens1) @ Github
+* [Yesenia Benitez ](https://github.com/yeseniax2) @ Github
+* [Ibsen Marcial](https://github.com/Ibsenmarcial) @ Github
