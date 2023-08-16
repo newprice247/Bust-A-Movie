@@ -12,15 +12,6 @@
     color: white;
 }
 
-/* body {
-    background-image: url('./assets/images/streaming.jpg') center no-repeat;
-    height: 50%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-} */
-
 body, html {
     height: 100%;
     margin: 0;

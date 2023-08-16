@@ -1,3 +1,5 @@
+var viewHistory = { search: [], id: [], poster: []}
+
 function onLoad() {
     if (localStorage.getItem('history')) {
         viewHistory = JSON.parse(localStorage.getItem('history'));
