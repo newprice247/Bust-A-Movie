@@ -41,18 +41,18 @@ onLoad()
 //   localStorage.setItem('history',JSON.stringify(historyObj));
 // }
 //Allows enter key to be pressed to start search
-$("#searchBar").keypress(function (event) {
+$(".searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
-        $("#searchButton").click();
+        $(".searchButton").click();
     }
 });
 
 //Event Listener for the search button
-$('#searchButton').on('click', function() {
+$('.searchButton').on('click', function() {
     //pulls the text entered into the searchbar and saves it as the variable 'title'
-    var title = $('#searchBar').val()
+    var title = $('.searchBar').val()
     //If statement for the search field being empty when the button is clicked
-    if ($('#searchBar').val() === "") {
+    if ($('.searchBar').val() === "") {
         return
     }
     //calls the movieSearch function and searches for the title of the movie
