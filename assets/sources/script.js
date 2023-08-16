@@ -36,10 +36,6 @@ function onLoad() {
 }
 onLoad()
 
-// function addHistory(dataToSave) {
-//   historyObj.city.push(dataToSave);
-//   localStorage.setItem('history',JSON.stringify(historyObj));
-// }
 //Allows enter key to be pressed to start search
 $(".searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
