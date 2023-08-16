@@ -10,18 +10,18 @@
 </head>
 
 <body>
-  <nav class="navbar is-align-items-center" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-align-items-center is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a href="#">
-        <p class="navbar-item is-size-3 has-text-rgb(9,189,11) homePage">Bust A Movie</p>
+        <p id='homePage' class="navbar-item is-size-3">Bust-A-Movie</p>
       </a>
     </div>
 
-    <div id="navbar" class="navbar-menu is-active">
+    <div id="navbar" class="navbar-menu is-active has-background-dark">
 
       <div class="navbar-start has-text-centered">
-        <a id="about" class=" navbar-item m-2 is-size-5 is-tab homePage">
-          About
+        <a id="about" class=" navbar-item m-2 is-size-5 is-tab">
+          About Us
         </a>
         <a id="yourMoviesNav" class=" navbar-item m-2 is-size-5 is-tab homePage">
           Your Movies
@@ -30,7 +30,7 @@
       </div>
 
       <div class="navbar-end">
-        <div class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
+        <div id="navSearch" class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
           <p class="control">
             <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
           </p>
@@ -43,6 +43,34 @@
       </div>
     </div>
   </nav>
+
+  <!-- <section class="hero">
+    <div class="hero-body">
+      <p class="title">
+        Hero title
+      </p>
+      <p class="subtitle">
+        Hero subtitle
+      </p>
+    </div>
+  </section> -->
+
+  <div class="hero-image">
+    <div class="hero-text">
+      <h1 style="font-size:50px">Welcome to <br>Bust-A-Movie</h1>
+      <div id="heroSearch" class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
+        <p class="control">
+          <input id="searchBar" class="input" type="text" placeholder="Title of Movie or Show">
+        </p>
+        <p class="control">
+          <button id="searchButton" class="button">
+            Search
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- Main container -->
   <main id="mainContainer" class="box has-text-centered section is-small has-background-black">
 
@@ -69,7 +97,7 @@
 
     <section id="yourMovies">
       <div>
-        <p class="is-size-3 has-text-primary mb-6">
+        <p id="recentTitle" class="is-size-3 has-text-hsl(141, 71%, 48%) mb-6">
           Recently Viewed Movies
         </p>
       </div>
@@ -80,8 +108,11 @@
       <!-- A list of the user's recent searches display here -->
     </section>
 
-    <section id="favMovies" class="section has-background-black columns has-text-primary is-size-5 is-align-items-center">
-      
+    <section id="favMovies" class="section has-background-black  is-size-5">
+
+      <p id="popularTitle" class="mb-6 is-size-3">Popular Searches</p>
+
+      <div class="columns">
       <div id="569094" class="column favMovieBox">
         <p>Spiderman: Across the Spider-Verse</p>
         <a>
@@ -115,6 +146,7 @@
           <img src="assets/images/John-wick.jpg" alt="movie poster">
         </a>
       </div>
+    </div>
     </section>
 
     <section id="resultsPage" class="columns has-text-light">

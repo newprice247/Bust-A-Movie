@@ -4,7 +4,7 @@
 // var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'
 
 $('#searchForMovie').hide()
-
+var currentPage = [recentmovies, results]
 var viewHistory = { search: [], id:[], poster: [] };
 
 function onLoad() {
@@ -13,8 +13,8 @@ function onLoad() {
     for(i = 0; i < viewHistory.search.length; i++) {
         $('#recentSearches').append(`
 
-            <div>
-                <p class="navbar-item has-text-primary is-justify-content-center is-size-4">
+            <div class="m-4">
+                <p class="navbar-item is-justify-content-center is-size-4">
                     ${viewHistory.search[i]}
                 </p>
                 <a>
@@ -32,6 +32,7 @@ function onLoad() {
   }
   $('#yourMovies').hide()
   $('#aboutPage').hide()
+  $('#navSearch').hide()
 }
 onLoad()
 
@@ -62,23 +63,40 @@ $('#searchButton').on('click', function() {
     $('#streamingBox').html("")
     $('#streamingBox').hide()
     $('#favMovies').hide()
+    $('.hero-image').hide()
+    $('#navSearch').show()
 
 })
 
 //Event listener for the navbar buttons
-$('.homePage').on('click', function() {
+$('#homePage').on('click', function() {
     $('#aboutPage').show()
     $('#favMovies').show()
     $('#searchResults').hide()
     $('#searchForMovie').hide()
     $('#resultsPage').hide()
     $('#yourMovies').hide()
+    $('.hero-image').show()
+    $('#navSearch').hide()
+})
+
+$('#about').on('click', function() {
+    $('#aboutPage').show()
+    $('#favMovies').hide()
+    $('#searchResults').hide()
+    $('#searchForMovie').hide()
+    $('#resultsPage').hide()
+    $('#yourMovies').hide()
+    $('.hero-image').hide()
+    $('#navSearch').hide()
 })
 
 $('#yourMoviesNav').on('click', function() {
     $('#aboutPage').hide()
     $('#yourMovies').show()
     $('#favMovies').hide()
+    $('.hero-image').hide()
+    $('#navSearch').show()
 })
 
 $('.recentSearchItem').on('click', function(event) {
@@ -92,6 +110,8 @@ $('.favMovieBox').on('click', function() {
     $('#displayResults').html("")
     $('#aboutPage').hide()
     $('#favMovies').hide()
+    $('.hero-image').hide()
+    $('#navSearch').show()
     var id = $(this).attr('id')
     showResults(id)
 })
@@ -160,7 +180,7 @@ var showResults = (id) => {
             $('#noRecentSearches').hide()
             $('#recentSearches').append(`
             <div>
-                <p class="navbar-item has-text-primary is-justify-content-center is-size-4">
+                <p class="navbar-item is-justify-content-center is-size-4">
                     ${name}
                 </p>
                 <a>
