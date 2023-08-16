@@ -35,6 +35,10 @@ body, html {
     background-size: cover;
     position: relative;
   }
+
+  .hero .is-expanded {
+    width: 100%;
+  }
   
   .hero-body {
     text-align: center;
@@ -43,6 +47,7 @@ body, html {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+    padding: 0px;
   }
 
   @media screen and (max-width: 780px) {
