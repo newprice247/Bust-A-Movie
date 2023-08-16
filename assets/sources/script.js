@@ -1,40 +1,32 @@
-//API keys
-// var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
-// var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
-// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'
-
-$('#searchForMovie').hide()
-
-var viewHistory = {search: [], id:[], poster: []};
-
 function onLoad() {
-  if(localStorage.getItem('history')) {
-    viewHistory = JSON.parse(localStorage.getItem('history'));
-    for(i = 0; i < viewHistory.search.length; i++) {
-        $('#recentSearches').append(`
-
+    if (localStorage.getItem('history')) {
+        viewHistory = JSON.parse(localStorage.getItem('history'));
+        for (i = 0; i < viewHistory.search.length; i++) {
+            $('#recentSearches').append(`
             <div class="m-4">
                 <p class="navbar-item is-justify-content-center is-size-4">
                     ${viewHistory.search[i]}
                 </p>
                 <a>
-                    <img  id="${viewHistory.id[i]}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${viewHistory.poster[i]}" alt="${viewHistory.search[i]}}">
+                <img id="${viewHistory.id[i]}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${viewHistory.poster[i]}" alt="${viewHistory.search[i]}}">
                 </a>
             </div>
             `)
-        } 
-  } else {
-    $('#recentSearches').append(`
-    <div id="noRecentSearches">
-        <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
-    </div>
-    `)
-  }
-  $('#yourMovies').hide()
-  $('#aboutPage').hide()
-  $('#navSearch').hide()
+        }
+    } else {
+        $('#recentSearches').append(`
+        <div id="noRecentSearches">
+            <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
+        </div>
+        `)
+    }
+    $('#yourMovies').hide()
+    $('#aboutPage').hide()
+    $('#navSearch').hide()
 }
 onLoad()
+
+// Event Listeners
 
 //Allows enter key to be pressed to start search
 $(".searchBar").keypress(function (event) {
@@ -42,90 +34,80 @@ $(".searchBar").keypress(function (event) {
         $(".searchButton").click();
     }
 });
-
 //Event Listener for the search button
-$('#navSearchButton').on('click', function() {
-    //pulls the text entered into the searchbar and saves it as the variable 'title'
+$('#navSearchButton').on('click', function () {
     var title = $('#navSearchBar').val()
-    //If statement for the search field being empty when the button is clicked
-    if ($('#navSearchBar').val() === "") {
+    if (title === "") {
         return
     }
-    //calls the movieSearch function and searches for the title of the movie
     movieSearch(title)
     $('#displayResults').html("")
     $('#aboutPage').hide()
-    $('#searchResults').show()
+    $('#searchSection').show()
     $('#streamingBox').html("")
     $('#streamingBox').hide()
     $('#favMovies').hide()
-    $('.hero-image').hide()
+    $('.hero').hide()
     $('#navSearch').show()
-})
 
-$('#heroSearchButton').on('click', function() {
-    //pulls the text entered into the searchbar and saves it as the variable 'title'
+})
+$('#heroSearchButton').on('click', function () {
     var title = $('#heroSearchBar').val()
-    //If statement for the search field being empty when the button is clicked
-    if ($('#heroSearchBar').val() === "") {
+    if (title === "") {
         return
     }
-    //calls the movieSearch function and searches for the title of the movie
     movieSearch(title)
     $('#displayResults').html("")
     $('#aboutPage').hide()
-    $('#searchResults').show()
+    $('#searchSection').show()
     $('#streamingBox').html("")
     $('#streamingBox').hide()
     $('#favMovies').hide()
-    $('.hero-image').hide()
+    $('.hero').hide()
     $('#navSearch').show()
 
 })
-
 //Event listener for the navbar buttons
-$('#homePage').on('click', function() {
-    $('#aboutPage').show()
+$('#homePage').on('click', function () {
+    $('#aboutPage').hide()
     $('#favMovies').show()
-    $('#searchResults').hide()
-    $('#searchForMovie').hide()
+    $('#searchSection').hide()
     $('#resultsPage').hide()
     $('#yourMovies').hide()
-    $('.hero-image').show()
+    $('.hero').show()
     $('#navSearch').hide()
 })
 
-$('#about').on('click', function() {
+$('#about').on('click', function () {
     $('#aboutPage').show()
     $('#favMovies').hide()
-    $('#searchResults').hide()
-    $('#searchForMovie').hide()
+    $('#searchSection').hide()
     $('#resultsPage').hide()
     $('#yourMovies').hide()
-    $('.hero-image').hide()
-    $('#navSearch').hide()
+    $('.hero').hide()
 })
 
-$('#yourMoviesNav').on('click', function() {
+$('#yourMoviesNav').on('click', function () {
     $('#aboutPage').hide()
     $('#yourMovies').show()
     $('#favMovies').hide()
-    $('.hero-image').hide()
+    $('.hero').hide()
     $('#navSearch').show()
+    $('#resultsPage').hide()
+    
 })
 
-$('.recentSearchItem').on('click', function(event) {
+$('.recentSearchItem').on('click', function (event) {
     var id = $(this).attr('id')
-    console.log(id)
     showResults(id)
     event.stopPropagation()
 })
 
-$('.favMovieBox').on('click', function() {
+$('.favMovieBox').on('click', function () {
     $('#displayResults').html("")
     $('#aboutPage').hide()
     $('#favMovies').hide()
-    $('.hero-image').hide()
+    $('.hero').hide()
     $('#navSearch').show()
     var id = $(this).attr('id')
     showResults(id)
@@ -142,8 +124,11 @@ var movieSearch = (title) => {
             $('#searchResults').html(``)
             $('#yourMovies').hide()
             $('#resultsPage').hide()
+            $('#searchSectionTitle').text(`
+                Showing Results for "${title}"
+            `)
             var searchResults = (searchData.results)
-            for (var i=0; i<searchResults.length; i++){
+            for (var i = 0; i < searchResults.length; i++) {
                 var poster = searchResults[i].image_url
                 if (poster == undefined) {
                     console.log('error no poster')
@@ -155,7 +140,7 @@ var movieSearch = (title) => {
                     continue;
                 }
                 $('#searchResults').append(`
-                    <div id="${movieId}" class="box p-3 m-3">
+                    <div id="${movieId}" class="box has-background-dark has-text-light is-size-4 m-3">
                         <p>${searchResults[i].name}</p>
                         <a>
                             <img class="resultButton" src="${poster}">
@@ -163,8 +148,8 @@ var movieSearch = (title) => {
                     </div>
                 `)
             }
-            
-            $('.resultButton').on('click', function() {
+
+            $('.resultButton').on('click', function () {
                 var id = $(this).parents('.box').attr('id')
                 showResults(id)
             })
@@ -172,125 +157,129 @@ var movieSearch = (title) => {
         .catch(error => {
             console.log(error)
         })
-}  
+}
 
 var showResults = (id) => {
     tmdbSearch = `https://api.themoviedb.org/3/movie/${id}?api_key=b3783de294fab53f3b5f107706f3d99e`;
     fetch(tmdbSearch)
-    .then(response => {
-        return response.json()
-    })
-    .then(data => {
-        var image = '"https://image.tmdb.org/t/p/w300/'
-        var name = data.original_title;
-        var poster = data.poster_path;
-        var id = data.id
-        if (viewHistory.search.includes(name) === false) {
-            viewHistory.search.push(name);
-            viewHistory.poster.push(poster);
-            viewHistory.id.push(id)
-            localStorage.setItem('history',JSON.stringify(viewHistory))
-            $('#noRecentSearches').hide()
-            $('#recentSearches').append(`
-            <div>
-                <p class="navbar-item is-justify-content-center is-size-4">
-                    ${name}
-                </p>
-                <a>
-                    <img id="${id}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
-                </a>
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            $('#resultsPage').show()
+            $('#searchSection').hide()
+            $('#yourMovies').hide()
+            var image = '"https://image.tmdb.org/t/p/w300/'
+            var name = data.original_title;
+            var poster = data.poster_path;
+            var id = data.id
+            var imdbId = data.imdb_id
+            var genres = []
+            for (i = 0; i < data.genres.length; i++) {
+                genres += data.genres[i].name
+                genres += '  '
+            }
+            $('#displayResults').html(`
+            <div id="resultsBox">
+                <p class="is-size-3 mb-3">${name}</p>
+                <img src=${image}${poster}" alt="Movie Poster">
+                <p>Release Date:  ${data.release_date}</p>
+                <p>Runtime: ${data.runtime} minutes</p>
+                <p>Genre: ${genres}</p>
             </div>
             `)
-            $('.recentSearchItem').on('click', function(event) {
-                var id = $(this).attr('id')
-                console.log(id)
-                showResults(id)
-                event.stopPropagation()
-            })
-        }
-
-
-        $('#resultsPage').show()
-        var imdbId = data.imdb_id
-        var genres = []
-        for (i = 0; i < data.genres.length; i++) {
-            genres += data.genres[i].name
-            genres += '  '
-        }
-        $('#searchResults').hide()
-        $('#yourMovies').hide()
-        $('#displayResults').html(`
-        <div id="resultsBox">
-            <p class="is-size-3 mb-3">${name}</p>
-            <img src=${image}${data.poster_path}" alt="Movie Poster">
-            <p>Release Date:  ${data.release_date}</p>
-            <p>Runtime: ${data.runtime} minutes</p>
-            <p>Genre: ${genres}</p>
-        </div>
-        `)
-        return fetch(`https://www.omdbapi.com/?i=${imdbId}&page=1&apikey=611f00c7`)
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(data2 => {
-        var name = data2.Title
-        var newName = name.replace(':', '')
-        var nameArr = newName.split(' ')
-        var nameStringRotten = nameArr.join('_').toLowerCase()
-        var nameStringMeta = nameArr.join('-').toLowerCase()
-
-        $('#displayRatings').html('')
-        $('#displayRatings').append(`
-        <div id="ratingsBox" class="is-size-4">
-            <p class="is-size-3 mb-3">Ratings:</p>
-            <div>
-                <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
-                    <img class="mt-6"src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
-                </a>
-                <p>${data2.Ratings[1].Value}</p>
-            </div>
-            <div>
-                <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
-                    <img class="mt-6" src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
-                </a>
-                <p>${data2.Ratings[0].Value}</p>
-            </div>
-            <div>
-                <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
-                        <img class="mt-6" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
-                </a>
-                <p>${data2.Ratings[2].Value}</p>
-            </div>
-        </div>
-        `)
-
-        return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&append_to_response=sources`)
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then(data3 => {
-        
-        $('#streamingBox').show()
-        $('#streamingBox').html('')
-        $('#streamingBox').append(`
-            <p class="is-size-3 mb-3">Available Streaming Services:</p>
-        `)
-        var streamingArr = {title:[], url:[]}
-        for(i = 0;i < data3.sources.length; i++) {
-            if (streamingArr.title.includes(data3.sources[i].name) === false) {
-                streamingArr.title.push(data3.sources[i].name);
-                streamingArr.url.push(data3.sources[i].web_url);
+            if (viewHistory.search.includes(name) === false) {
+                viewHistory.search.push(name);
+                viewHistory.poster.push(poster);
+                viewHistory.id.push(id)
+                localStorage.setItem('history', JSON.stringify(viewHistory))
+                $('#noRecentSearches').hide()
+                $('#recentSearches').append(`
+                    <div>
+                        <p class="navbar-item is-justify-content-center is-size-4">
+                            ${name}
+                        </p>
+                        <a>
+                            <img id="${id}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
+                        </a>
+                    </div>
+                    `)
+                $('.recentSearchItem').on('click', function (event) {
+                    var id = $(this).attr('id')
+                    showResults(id)
+                    event.stopPropagation()
+                })
             }
-        }
-        for (i = 0; i < streamingArr.title.length; i++) {
+            return fetch(`https://www.omdbapi.com/?i=${imdbId}&page=1&apikey=611f00c7`)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data2 => {
+            var name = data2.Title
+            var newName = name.replace(':', '')
+            var nameArr = newName.split(' ')
+            var nameStringRotten = nameArr.join('_').toLowerCase()
+            var nameStringMeta = nameArr.join('-').toLowerCase()
+
+            $('#displayRatings').html('')
+            $('#displayRatings').append(`
+            <div id="ratingsBox" class="is-size-4">
+                <p class="is-size-3 mb-3">Ratings:</p>
+                <div>
+                    <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
+                        <img class="mt-6"src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
+                    </a>
+                    <p>${data2.Ratings[1].Value}</p>
+                </div>
+                <div>
+                    <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
+                        <img class="mt-6" src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
+                    </a>
+                    <p>${data2.Ratings[0].Value}</p>
+                </div>
+                <div>
+                    <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
+                            <img class="mt-6" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+                    </a>
+                    <p>${data2.Ratings[2].Value}</p>
+                </div>
+            </div>
+        `)
+
+            return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&append_to_response=sources`)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data3 => {
+
+            $('#streamingBox').show()
+            $('#streamingBox').html('')
             $('#streamingBox').append(`
+                <p class="is-size-3 mb-3">Available Streaming Services:</p>
+            `)
+            var streamingArr = { title: [], url: [] }
+            for (i = 0; i < data3.sources.length; i++) {
+                if (streamingArr.title.includes(data3.sources[i].name) === false) {
+                    streamingArr.title.push(data3.sources[i].name);
+                    streamingArr.url.push(data3.sources[i].web_url);
+                }
+            }
+            for (i = 0; i < streamingArr.title.length; i++) {
+                $('#streamingBox').append(`
                 <div class="m-5 is-size-4">
                 <a target="_blank" href="${streamingArr.url[i]}">${streamingArr.title[i]}</a>
                 </div>
             `)
-        }
-    })
+            }
+        })
 
 }
+
+
+//API keys
+// var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
+// var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
+// backup watchmode key h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI
+// var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'

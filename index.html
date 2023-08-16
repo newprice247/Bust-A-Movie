@@ -18,7 +18,6 @@
     </div>
 
     <div id="navbar" class="navbar-menu is-active has-background-dark">
-
       <div class="navbar-start has-text-centered">
         <a id="about" class=" navbar-item m-2 is-size-5 is-tab">
           About Us
@@ -26,9 +25,7 @@
         <a id="yourMoviesNav" class=" navbar-item m-2 is-size-5 is-tab homePage">
           Your Movies
         </a>
-
       </div>
-
       <div class="navbar-end">
         <div id="navSearch" class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
           <p class="control">
@@ -44,12 +41,12 @@
     </div>
   </nav>
 
-  <div class="hero-image">
-    <div class="hero-text">
-      <h1 style="font-size:50px">Welcome to <br>Bust-A-Movie</h1>
-      <div class="field has-addons is-justify-content-center box has-background-dark is-align-items-center">
+  <section class="hero">
+    <div class="hero-body">
+      <h1 class="title is-size-2 has-text-light is-size-4-mobile">Welcome to <br>Bust-A-Movie</h1>
+      <div class="field has-addons is-justify-content-center is-medium has-background-dark is-align-items-center">
         <p class="control">
-          <input id="heroSearchBar" class="input searchBar" type="text" placeholder="Title of Movie or Show">
+          <input id="heroSearchBar" class="input searchBar is-expanded" type="text" placeholder="Title of Movie or Show">
         </p>
         <p class="control">
           <button id="heroSearchButton" class="button searchButton">
@@ -58,14 +55,14 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Main container -->
   <main id="mainContainer" class="box has-text-centered section is-small has-background-black">
 
     <!-- Show Results Function replaces the code beginning here -->
 
-    <section id="aboutPage" class="is-size-4 .homePage section has-text-light">
+    <section id="aboutPage" class="is-size-4 is-size-5-mobile .homePage section has-text-light">
       <p>Welcome to Bust-A-Movie, your ultimate movie companion in the digital age! Dive into a world of cinematic
         excitement as we blend the magic of "bust a move" with the thrill of blockbuster hits. With our cutting-edge
         APIs, we bring you instant access to a treasure trove of movie information - from plot summaries that will leave
@@ -80,8 +77,11 @@
         gather your popcorn, and let's "bust a movie" night together! </p>
     </section>
 
-    <section id="searchForMovie" class="box has-text-centered section is-medium has-background-black">
-      <!-- The search results will append here -->
+    <section id="searchSection">
+      <p id="searchSectionTitle" class="is-size-3 mb-5 has-text-light" has-text-centered></p>
+      <div id="searchResults" class="has-background-black is-flex-wrap-wrap columns is-justify-content-space-evenly">
+        <!-- Search Results will show up here -->
+      </div>
     </section>
 
     <section id="yourMovies">
@@ -92,15 +92,12 @@
       </div>
       <div id="recentSearches" class="is-flex-wrap-wrap columns is-justify-content-space-evenly">
 
+        <!-- A list of the user's recent searches display here -->
       </div>
-      
-      <!-- A list of the user's recent searches display here -->
     </section>
 
     <section id="favMovies" class="section has-background-black  is-size-5">
-
-      <p id="popularTitle" class="mb-6 is-size-3">Popular Searches</p>
-
+      <p id="popularTitle" class="mb-6 is-size-3 is-size-4-mobile">Popular Searches</p>
       <div class="columns is-align-items-center">
       <div id="569094" class="column favMovieBox">
         <p>Spiderman: Across the Spider-Verse</p>
@@ -130,7 +127,7 @@
       <div id="245891" class="column favMovieBox">
         <p>John Wick</p>
         <a>
-          <img src="assets/images/John-wick.jpg" alt="movie poster">
+          <img src="https://image.tmdb.org/t/p/w300//fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg" alt="movie poster">
         </a>
       </div>
     </div>
@@ -146,10 +143,6 @@
       <div id="streamingBox" class="column p-5">
         <!-- Streaming Services will append here -->
       </div>
-    </section>
-
-    <section id="searchResults" class="has-background-black is-flex-wrap-wrap columns is-justify-content-space-evenly">
-      <!-- Search Results will show up here -->
     </section>
   </main>
 </body>
