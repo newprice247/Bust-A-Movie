@@ -4,7 +4,7 @@
 // var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'
 
 $('#searchForMovie').hide()
-var currentPage = [recentmovies, results]
+
 var viewHistory = { search: [], id:[], poster: [] };
 
 function onLoad() {
