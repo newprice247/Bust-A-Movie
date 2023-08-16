@@ -44,11 +44,30 @@ $(".searchBar").keypress(function (event) {
 });
 
 //Event Listener for the search button
-$('.searchButton').on('click', function() {
+$('#navSearchButton').on('click', function() {
     //pulls the text entered into the searchbar and saves it as the variable 'title'
-    var title = $('.searchBar').val()
+    var title = $('#navSearchBar').val()
     //If statement for the search field being empty when the button is clicked
-    if ($('.searchBar').val() === "") {
+    if ($('#navSearchBar').val() === "") {
+        return
+    }
+    //calls the movieSearch function and searches for the title of the movie
+    movieSearch(title)
+    $('#displayResults').html("")
+    $('#aboutPage').hide()
+    $('#searchResults').show()
+    $('#streamingBox').html("")
+    $('#streamingBox').hide()
+    $('#favMovies').hide()
+    $('.hero-image').hide()
+    $('#navSearch').show()
+})
+
+$('#heroSearchButton').on('click', function() {
+    //pulls the text entered into the searchbar and saves it as the variable 'title'
+    var title = $('#heroSearchBar').val()
+    //If statement for the search field being empty when the button is clicked
+    if ($('#heroSearchBar').val() === "") {
         return
     }
     //calls the movieSearch function and searches for the title of the movie
@@ -114,9 +133,7 @@ $('.favMovieBox').on('click', function() {
 
 //Search function
 var movieSearch = (title) => {
-
     var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&search_value=${title}&search_type=2`;
-    
     fetch(watchmodeSearch)
         .then(response => {
             return response.json()
