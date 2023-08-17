@@ -126,7 +126,7 @@ $('#clearHistory').on('click', function() {
 
 //Searches for movie based on the value of the text entered into either searchbar
 var movieSearch = (title) => {
-    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI&search_value=${title}&search_type=3`;
+    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=MrGTsGgbhFfhDXVJCCQa4pFgqs8moIrmp7JsjoPl&search_value=${title}&search_type=3`;
     fetch(watchmodeSearch)
         .then(response => {
             return response.json()
@@ -293,7 +293,7 @@ var showResults = (id) => {
             </div>
         `)
             // Chains the watchmode api with the imdb ID as the search parameter
-            return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI&append_to_response=sources`)
+            return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=MrGTsGgbhFfhDXVJCCQa4pFgqs8moIrmp7JsjoPl&append_to_response=sources`)
         })
         .then(response => {
             return response.json();
