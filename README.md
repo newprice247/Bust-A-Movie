@@ -47,7 +47,13 @@ The goal of this project was to build a film search engine that seeks to improve
 [ Click Here to View Deployed Website](https://newprice247.github.io/Bust-A-Movie/)
 
 
-![Bust-A-Movie Screenshot](assets/images/Capture2.PNG)
+![Homepage Screenshot](assets/images/Capture2.PNG)
+
+![Search Results Screenshot](assets/images/Capture3.PNG)
+
+![Movie Details Screenshot](assets/images/Capture.PNG)
+
+![Recently Viewed Screenshot](assets/images/Capture4.PNG)
 
 ## Credits
 
