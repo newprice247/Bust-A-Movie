@@ -5,7 +5,7 @@ function onLoad() {
         viewHistory = JSON.parse(localStorage.getItem('history'));
         for (i = 0; i < viewHistory.search.length; i++) {
             $('#recentSearches').append(`
-            <div class="m-4">
+            <div class="m-4 zoom2">
                 <p class="navbar-item is-justify-content-center is-size-4">
                     ${viewHistory.search[i]}
                 </p>
@@ -16,10 +16,8 @@ function onLoad() {
             `)
         }
     } else {
-        $('#recentSearches').append(`
-        <div id="noRecentSearches">
+        $('#clearHistory').html(`
             <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
-        </div>
         `)
     }
     $('#yourMovies').hide()
@@ -115,9 +113,18 @@ $('.favMovieBox').on('click', function () {
     showResults(id)
 })
 
+$('#clearHistory').on('click', function() {
+    localStorage.clear()
+    $('#recentSearches').html('')
+    $('#homePage').click()
+    $('#clearHistory').html(`
+            <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
+        `)
+})
+
 //Search function
 var movieSearch = (title) => {
-    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&search_value=${title}&search_type=2`;
+    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI&search_value=${title}&search_type=2`;
     fetch(watchmodeSearch)
         .then(response => {
             return response.json()
@@ -142,7 +149,7 @@ var movieSearch = (title) => {
                     continue;
                 }
                 $('#searchResults').append(`
-                    <div id="${movieId}" class="box has-background-dark has-text-light is-size-4 m-3">
+                    <div id="${movieId}" class="box  zoom2 has-background-dark has-text-light is-size-4 m-3">
                         <p>${searchResults[i].name}</p>
                         <a>
                             <img class="resultButton" src="${poster}">
@@ -182,12 +189,20 @@ var showResults = (id) => {
                 genres += '  '
             }
             $('#displayResults').html(`
-            <div id="resultsBox">
-                <p class="is-size-3 mb-3">${name}</p>
+            <div class="column ">
+                <p class="is-size-3 mb-3 has-text-warning">${name}</p>
                 <img src=${image}${poster}" alt="Movie Poster">
-                <p>Release Date:  ${data.release_date}</p>
-                <p>Runtime: ${data.runtime} minutes</p>
-                <p>Genre: ${genres}</p>
+                <p class="is-size-4 has-text-warning">Overview</p>
+                <p class="mb-3">${data.overview}</p>
+            </div>
+            <div id="dataBox" class="column">
+                
+                <p class="is-size-4 has-text-warning">Release Date</p>
+                <p class="mb-3">${data.release_date}</p>
+                <p class="is-size-4 has-text-warning">Runtime</p>
+                <p class="mb-3">${data.runtime} minutes</p>
+                <p class="is-size-4 has-text-warning">Genre</p>
+                <p class="mb-3">${genres}</p>
             </div>
             `)
             if (viewHistory.search.includes(name) === false) {
@@ -195,9 +210,8 @@ var showResults = (id) => {
                 viewHistory.poster.push(poster);
                 viewHistory.id.push(id)
                 localStorage.setItem('history', JSON.stringify(viewHistory))
-                $('#noRecentSearches').hide()
                 $('#recentSearches').append(`
-                    <div>
+                    <div class="zoom2">
                         <p class="navbar-item is-justify-content-center is-size-4">
                             ${name}
                         </p>
@@ -205,7 +219,10 @@ var showResults = (id) => {
                             <img id="${id}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
                         </a>
                     </div>
-                    `)
+                `)
+                $('#clearHistory').html(`
+                    <p class="is-size-4 has-text-danger">Clear History</p>
+                `)
                 $('.recentSearchItem').on('click', function (event) {
                     var id = $(this).attr('id')
                     showResults(id)
@@ -224,32 +241,42 @@ var showResults = (id) => {
             var nameStringRotten = nameArr.join('_').toLowerCase()
             var nameStringMeta = nameArr.join('-').toLowerCase()
 
+            $('#dataBox').append(`
+                <p class="is-size-4 has-text-warning">Director</p>
+                <p class="mb-3">${data2.Director}</p>
+                <p class="is-size-4 has-text-warning">Actors</p>
+                <p class="mb-3">${data2.Actors}</p>
+                <p class="is-size-4 has-text-warning">Awards</p>
+                <p class="mb-3">${data2.Awards}</p>
+                <p class="is-size-4 has-text-warning">Box Office</p>
+                <p class="mb-3">${data2.BoxOffice}</p>
+                `)
             $('#displayRatings').html('')
             $('#displayRatings').append(`
             <div id="ratingsBox" class="is-size-4">
-                <p class="is-size-3 mb-3">Ratings:</p>
+                <p class="is-size-3 mb-1 has-text-warning">Ratings:</p>
                 <div>
                     <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
-                        <img class="mt-6"src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
+                        <img class="mt-3 zoom"src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
                     </a>
                     <p>${data2.Ratings[1].Value}</p>
                 </div>
                 <div>
                     <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
-                        <img class="mt-6" src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
+                        <img class="mt-3 zoom " src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
                     </a>
                     <p>${data2.Ratings[0].Value}</p>
                 </div>
                 <div>
                     <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
-                            <img class="mt-6" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+                            <img class="mt-3 zoom" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
                     </a>
                     <p>${data2.Ratings[2].Value}</p>
                 </div>
             </div>
         `)
 
-            return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv&append_to_response=sources`)
+            return fetch(`https://api.watchmode.com/v1/title/${data2.imdbID}/details/?apiKey=h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI&append_to_response=sources`)
         })
         .then(response => {
             return response.json();
@@ -259,7 +286,7 @@ var showResults = (id) => {
             $('#streamingBox').show()
             $('#streamingBox').html('')
             $('#streamingBox').append(`
-                <p class="is-size-3 mb-3">Available Streaming Services:</p>
+                <p class="is-size-3 mb-3 has-text-warning">Available Streaming Services:</p>
             `)
             var streamingArr = { title: [], url: [] }
             for (i = 0; i < data3.sources.length; i++) {
@@ -270,7 +297,7 @@ var showResults = (id) => {
             }
             for (i = 0; i < streamingArr.title.length; i++) {
                 $('#streamingBox').append(`
-                <div class="m-5 is-size-4">
+                <div class="m-2 is-size-4 zoom">
                 <a target="_blank" href="${streamingArr.url[i]}">${streamingArr.title[i]}</a>
                 </div>
             `)

@@ -13,7 +13,7 @@
   <nav class="navbar is-align-items-center is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a href="#">
-        <p id='homePage' class="navbar-item is-size-3">Bust-A-Movie</p>
+        <p id='homePage' class="navbar-item is-size-3 zoom2">Bust-A-Movie</p>
       </a>
     </div>
 
@@ -88,40 +88,48 @@
           Recently Viewed Movies
         </p>
       </div>
-      <div id="recentSearches" class="is-flex-wrap-wrap columns is-justify-content-space-evenly">
-        <!-- A list of the user's recent searches display here -->
+      <div id="yourMoviesPage">
+        <div id="recentSearches" class="is-flex-wrap-wrap columns is-justify-content-space-evenly">
+          <!-- A list of the user's recent searches display here -->
+        </div>
+        
+        <div id="noRecentSearches">
+          <a>
+            <p id="clearHistory" class=" zoom2 is-size-4 has-text-danger">Clear History</p>
+          </a>
+        </div>
       </div>
     </section>
 
     <section id="favMovies" class="section has-background-black  is-size-5">
       <p id="popularTitle" class="mb-6 is-size-3 is-size-4-mobile">Popular Searches</p>
       <div class="columns is-align-items-center">
-      <div id="569094" class="column favMovieBox">
+      <div id="569094" class="column favMovieBox zoom2">
         <p class="mb-3">Spiderman: Across the Spider-Verse</p>
         <a>
           <img src="https://image.tmdb.org/t/p/w300//8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg" width="300px" alt="movie poster">
         </a>
       </div>
 
-      <div id="299534" class="column favMovieBox">
+      <div id="299534" class="column favMovieBox is-size-4 zoom2">
         <p class="mb-3">Avengers: Endgame</p>
         <a>
           <img src="assets/images/avengers.jpg" width="300px" alt="movie poster">
         </a>
       </div>
-      <div id="76341" class="column favMovieBox">
+      <div id="76341" class="column favMovieBox zoom2">
         <p class="mb-3">Mad Max: Fury Road</p>
         <a>
           <img src="assets/images/mad-max.jpg" width="300px"  alt="movie poster">
         </a>
       </div>
-      <div id="545609" class="column favMovieBox">
+      <div id="545609" class="column favMovieBox zoom2">
         <p class="mb-3">Extraction</p>
         <a>
           <img src="https://image.tmdb.org/t/p/w300//nygOUcBKPHFTbxsYRFZVePqgPK6.jpg" alt="movie poster">
         </a>
       </div>
-      <div id="245891" class="column favMovieBox">
+      <div id="245891" class="column favMovieBox zoom2">
         <p class="mb-3">John Wick</p>
         <a>
           <img src="https://image.tmdb.org/t/p/w300//fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg" alt="movie poster">
@@ -131,13 +139,13 @@
     </section>
 
     <section id="resultsPage" class="columns has-text-light">
-      <div id="displayResults" class="column">
+      <div id="displayResults" class="column columns is-three-fifths">
         <!-- Movie Poster and info will append here -->
       </div>
-      <div id="displayRatings" class="column p-5">
+      <div id="displayRatings" class="column">
         <!-- Review websites and ratings will append here -->
       </div>
-      <div id="streamingBox" class="column p-5">
+      <div id="streamingBox" class="column p-2">
         <!-- Streaming Services will append here -->
       </div>
     </section>

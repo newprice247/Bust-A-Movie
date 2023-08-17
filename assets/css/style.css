@@ -41,6 +41,18 @@ body, html {
     padding: 0px;
   }
 
+  .zoom, .zoom2 {
+    transition: transform .2s;
+  }
+
+  .zoom:hover {
+    transform: scale(1.2);
+  }
+
+  .zoom2:hover {
+    transform: scale(1.1);
+  }
+
   @media screen and (max-width: 780px) {
     .favMovieBox img {
       width: 200px;
