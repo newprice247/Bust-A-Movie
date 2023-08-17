@@ -257,19 +257,19 @@ var showResults = (id) => {
                 <p class="is-size-3 mb-1 has-text-warning">Ratings:</p>
                 <div>
                     <a target="_blank" href="https://www.rottentomatoes.com/m/${nameStringRotten}">
-                        <img class="mt-3 zoom"src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
+                        <img class="mt-3 zoom" width="150px" src="./assets/images/Rotten_Tomatoes_logo.svg.png" alt="Movie Poster">
                     </a>
                     <p>${data2.Ratings[1].Value}</p>
                 </div>
                 <div>
                     <a target="_blank" href="https://www.imdb.com/title/${data2.imdbID}/">
-                        <img class="mt-3 zoom " src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
+                        <img class="mt-3 zoom " width="150px" src="./assets/images/IMDB_Logo.png" alt="Movie Poster">
                     </a>
                     <p>${data2.Ratings[0].Value}</p>
                 </div>
                 <div>
                     <a target="_blank" href="https://www.metacritic.com/movie/${nameStringMeta}">
-                            <img class="mt-3 zoom" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
+                            <img class="mt-3 zoom" width="150px" src="./assets/images/Metacritic_logo2.png" alt="Movie Poster">
                     </a>
                     <p>${data2.Ratings[2].Value}</p>
                 </div>
