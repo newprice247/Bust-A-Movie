@@ -100,6 +100,7 @@ $('#yourMoviesNav').on('click', function () {
 // Event listener for the movies the user has saved to the 'Your Movies' page
 $('.recentSearchItem').on('click', function (event) {
     var id = $(this).attr('id')
+    $('#dataBox').html('')
     showResults(id)
     event.stopPropagation()
 })
