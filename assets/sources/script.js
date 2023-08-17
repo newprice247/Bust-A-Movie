@@ -328,5 +328,5 @@ var showResults = (id) => {
 //API keys (So we have easy access to them or if they get lost or deleted)
 // var movieDatabaseApi = `http://www.omdbapi.com/?t==${title}&apikey=611f00c7`
 // var watchmodeStreamingApi =  `https://api.watchmode.com/v1/title/345534/details/?apiKey=6N5wEhqG1MjX7EYLU4zvfMui5TyhL4Io8eUxuhM5&append_to_response=sources`
-// backup watchmode key h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI
+// backup watchmode key MrGTsGgbhFfhDXVJCCQa4pFgqs8moIrmp7JsjoPl
 // var tmdbApi = 'https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=7hibFdjKy4046BRqHjrUNu4fWLbXyO2rtZmN3XHv'
