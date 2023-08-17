@@ -53,6 +53,10 @@ body, html {
     transform: scale(1.1);
   }
 
+
+  #streamingBox a:hover {
+    color: white;
+  }
   @media screen and (max-width: 780px) {
     .favMovieBox img {
       width: 200px;
