@@ -149,8 +149,8 @@ var movieSearch = (title) => {
                     continue;
                 }
                 $('#searchResults').append(`
-                    <div id="${movieId}" class="box  zoom2 has-background-dark has-text-light is-size-4 m-3">
-                        <p>${searchResults[i].name}</p>
+                    <div id="${movieId}" class="box has-background-black-ter zoom2 has-text-light is-size-4 m-3">
+                        <p class="mb-4">${searchResults[i].name}</p>
                         <a>
                             <img class="resultButton" src="${poster}">
                         </a>
@@ -188,6 +188,7 @@ var showResults = (id) => {
                 genres += data.genres[i].name
                 genres += '  '
             }
+            $('#dataBox').html('')
             $('#displayResults').html(`
             <div class="column ">
                 <p class="is-size-3 mb-3 has-text-warning">${name}</p>
@@ -240,7 +241,6 @@ var showResults = (id) => {
             var nameArr = newName.split(' ')
             var nameStringRotten = nameArr.join('_').toLowerCase()
             var nameStringMeta = nameArr.join('-').toLowerCase()
-
             $('#dataBox').append(`
                 <p class="is-size-4 has-text-warning">Director</p>
                 <p class="mb-3">${data2.Director}</p>
