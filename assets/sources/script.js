@@ -32,7 +32,8 @@ onLoad()
 //Allows enter key to be pressed to start search
 $(".searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
-        $(".searchButton").click();
+        $("#navSearchButton").click();
+        $('#heroSearchButton').click()
     }
 });
 //Event Listener for the search button in navbar
@@ -124,7 +125,7 @@ $('#clearHistory').on('click', function() {
 
 //Searches for movie based on the value of the text entered into either searchbar
 var movieSearch = (title) => {
-    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI&search_value=${title}&search_type=2`;
+    var watchmodeSearch = `https://api.watchmode.com/v1/autocomplete-search/?apiKey=h9bYrpSa7Rlr9oEUoXUqIQj14GFbRQy3LF7JvrEI&search_value=${title}&search_type=3`;
     fetch(watchmodeSearch)
         .then(response => {
             return response.json()
@@ -138,6 +139,10 @@ var movieSearch = (title) => {
             `)
             // for loop that loops through all the movies that the api search call returns, determines if they are popular enough to have both a poster image and TMDb id, then appends the filtered results to the page
             var searchResults = (searchData.results)
+            console.log(searchResults)
+            if(searchResults.length == 0) {
+                $('#searchResults').append(`Sorry no movies found, check your spelling and try again`)
+            }
             for (var i = 0; i < searchResults.length; i++) {
                 var poster = searchResults[i].image_url
                 if (poster == undefined) {
@@ -300,8 +305,8 @@ var showResults = (id) => {
             $('#streamingBox').append(`
                 <p class="is-size-3 mb-3 has-text-warning">Available Streaming Services:</p>
             `)
-            var streamingArr = { title: [], url: [] }
             // Checks to make sure there are no repetitions of streaming sources(i.e. three youtube data points, one for renting SD, one for renting 4K, and one for purchasing) and only chooses the first available source on that particular website
+            var streamingArr = { title: [], url: [] }
             for (i = 0; i < data3.sources.length; i++) {
                 if (streamingArr.title.includes(data3.sources[i].name) === false) {
                     streamingArr.title.push(data3.sources[i].name);
