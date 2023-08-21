@@ -1,7 +1,7 @@
 // Object used to store the local storage data while the site is active
 var viewHistory = { search: [], id: [], poster: []}
 // On loading the page will pull data from local storage and store it in the viewHistory object, then create the 'Your Movies' page for the user
-function onLoad() {
+function onload() {
     if (localStorage.getItem('history')) {
         viewHistory = JSON.parse(localStorage.getItem('history'));
         for (i = 0; i < viewHistory.search.length; i++) {
@@ -21,98 +21,56 @@ function onLoad() {
             <p class="is-size-2 has-text-warning">Nothing to display, go look for some movies first!</p>
         `)
     }
-    $('#yourMovies').hide()
-    $('#aboutPage').hide()
-    $('#navSearch').hide()
+    $('#yourMovies, #aboutPage, #navSearch').hide()
 }
-onLoad()
+onload()
 
 // Event Listeners
 
 //Allows enter key to be pressed to start search
 $(".searchBar").keypress(function (event) {
     if (event.keyCode === 13) {
-        $("#navSearchButton").click();
-        $('#heroSearchButton').click()
+        $(".searchButton").click();
     }
 });
 //Event Listener for the search button in navbar
-$('#navSearchButton').on('click', function () {
-    var title = $('#navSearchBar').val()
+$('.searchButton').on('click', function () {
+    var title = $(this).parents('.control').prev().children('.searchBar').val()
     if (title === "") {
         return
     }
     movieSearch(title)
-    $('#displayResults').html("")
-    $('#aboutPage').hide()
-    $('#searchSection').show()
-    $('#streamingBox').html("")
-    $('#streamingBox').hide()
-    $('#favMovies').hide()
-    $('.hero').hide()
-    $('#navSearch').show()
+    $('#displayResults ,#streamingBox').html("")
+    $('#aboutPage, #streamingBox, #favMovies, .hero').hide()
+    $('#navSearch, #searchSection').show()
 
 })
-//Event Listener for the search button in hero banner
-$('#heroSearchButton').on('click', function () {
-    var title = $('#heroSearchBar').val()
-    if (title === "") {
-        return
-    }
-    movieSearch(title)
-    $('#displayResults').html("")
-    $('#aboutPage').hide()
-    $('#searchSection').show()
-    $('#streamingBox').html("")
-    $('#streamingBox').hide()
-    $('#favMovies').hide()
-    $('.hero').hide()
-    $('#navSearch').show()
 
-})
 //Event listeners for the navbar buttons
 $('#homePage').on('click', function () {
-    $('#aboutPage').hide()
-    $('#favMovies').show()
-    $('#searchSection').hide()
-    $('#resultsPage').hide()
-    $('#yourMovies').hide()
-    $('.hero').show()
-    $('#navSearch').hide()
+    $('#aboutPage, #searchSection, #resultsPage, #yourMovies, #navSearch').hide()
+    $('#favMovies, .hero').show()
 })
 $('#about').on('click', function () {
     $('#aboutPage').show()
-    $('#favMovies').hide()
-    $('#searchSection').hide()
-    $('#resultsPage').hide()
-    $('#yourMovies').hide()
-    $('.hero').hide()
+    $('#favMovies, #searchSection, #resultsPage, #yourMovies, .hero').hide()
 })
 $('#yourMoviesNav').on('click', function () {
-    $('#aboutPage').hide()
-    $('#yourMovies').show()
-    $('#favMovies').hide()
-    $('.hero').hide()
-    $('#navSearch').show()
-    $('#resultsPage').hide()
-    
+    $('#aboutPage, #favMovies, .hero, #resultsPage').hide()
+    $('#yourMovies, #navSearch').show()
 })
 // Event listener for the movies the user has saved to the 'Your Movies' page
 $('.recentSearchItem').on('click', function (event) {
-    var id = $(this).attr('id')
     $('#dataBox').html('')
-    showResults(id)
+    showResults($(this).attr('id'))
     event.stopPropagation()
 })
 // Event Listener for the movies located in the 'Popular Searches' section of the homepage
 $('.favMovieBox').on('click', function () {
     $('#displayResults').html("")
-    $('#aboutPage').hide()
-    $('#favMovies').hide()
-    $('.hero').hide()
+    $('#aboutPage, #favMovies, .hero').hide()
     $('#navSearch').show()
-    var id = $(this).attr('id')
-    showResults(id)
+    showResults($(this).attr('id'))
 })
 // Event Listener for the clear history button in the 'Your Movies' page
 $('#clearHistory').on('click', function() {
@@ -133,8 +91,7 @@ var movieSearch = (title) => {
         })
         .then(searchData => {
             $('#searchResults').html(``)
-            $('#yourMovies').hide()
-            $('#resultsPage').hide()
+            $('#yourMovies, #resultsPage').hide()
             $('#searchSectionTitle').text(`
                 Showing Results for "${title}"
             `)
@@ -166,8 +123,7 @@ var movieSearch = (title) => {
             }
             // Event Listener for the search results, will call the showResults function
             $('.resultButton').on('click', function () {
-                var id = $(this).parents('.box').attr('id')
-                showResults(id)
+                showResults($(this).parents('.box').attr('id'))
             })
         })
         .catch(error => {
@@ -183,23 +139,17 @@ var showResults = (id) => {
         })
         .then(data => {
             $('#resultsPage').show()
-            $('#searchSection').hide()
-            $('#yourMovies').hide()
-            var image = '"https://image.tmdb.org/t/p/w300/'
-            var name = data.original_title;
-            var poster = data.poster_path;
-            var id = data.id
-            var imdbId = data.imdb_id
+            $('#searchSection, #yourMovies').hide()
+            $('#dataBox').html('')
             var genres = []
             for (i = 0; i < data.genres.length; i++) {
                 genres += data.genres[i].name
                 genres += '  '
             }
-            $('#dataBox').html('')
             $('#displayResults').html(`
             <div class="column ">
-                <p class="is-size-3 mb-3 has-text-warning">${name}</p>
-                <img src=${image}${poster}" alt="Movie Poster">
+                <p class="is-size-3 mb-3 has-text-warning">${data.original_title}</p>
+                <img src="https://image.tmdb.org/t/p/w300/${data.poster_path}" alt="Movie Poster">
                 <p class="is-size-4 has-text-warning">Overview</p>
                 <p class="mb-3">${data.overview}</p>
             </div>
@@ -214,18 +164,18 @@ var showResults = (id) => {
             </div>
             `)
             // Checks to see if the name of the resulting movie is stored in the viewHistory Object, stores the name, id, and poster path of the movie to the viewHistory object if it is not already, then appends the newly stored movie to the 'Your Movies' page
-            if (viewHistory.search.includes(name) === false) {
-                viewHistory.search.push(name);
-                viewHistory.poster.push(poster);
-                viewHistory.id.push(id)
+            if (viewHistory.search.includes(data.original_title) === false) {
+                viewHistory.search.push(data.original_title);
+                viewHistory.poster.push(data.poster_path);
+                viewHistory.id.push(data.id)
                 localStorage.setItem('history', JSON.stringify(viewHistory))
                 $('#recentSearches').append(`
                     <div class="zoom2">
                         <p class="navbar-item is-justify-content-center is-size-4">
-                            ${name}
+                            ${data.original_title}
                         </p>
                         <a>
-                            <img id="${id}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${poster}" alt="${name}">
+                            <img id="${data.id}" class="recentSearchItem" src="https://image.tmdb.org/t/p/w300/${data.poster_path}" alt="${data.original_title}">
                         </a>
                     </div>
                 `)
@@ -235,13 +185,12 @@ var showResults = (id) => {
                 `)
                 // Creates an event listener for any new movies appended to the 'Your Movies' section
                 $('.recentSearchItem').on('click', function (event) {
-                    var id = $(this).attr('id')
-                    showResults(id)
+                    showResults($(this).attr('id'))
                     event.stopPropagation()
                 })
             }
             // Uses the imdb id that is available with the tmdb api to begin another api call to omdb, in a process known as chaining api's
-            return fetch(`https://www.omdbapi.com/?i=${imdbId}&page=1&apikey=611f00c7`)
+            return fetch(`https://www.omdbapi.com/?i=${data.imdb_id}&page=1&apikey=611f00c7`)
         })
         .then(response => {
             return response.json();
@@ -249,9 +198,12 @@ var showResults = (id) => {
         // Uses OMDb data to display movie critic website ratings
         .then(data2 => {
             // Restuctures the title of the movie so that it can be used inside of the search links to the review websites below
-            var name = data2.Title
-            // If there is a semi-colon, it won't be included in the title string, as the websites don't recognise it the the url
-            var newName = name.replace(':', '')
+
+            // If there is a semi-colon or hyphen, it won't be included in the title string, as the websites don't recognise it the the url
+            var newName = data2.Title.replaceAll(':', '')
+            console.log(newName)
+            newName = newName.replaceAll('-', ' ')
+            console.log(newName)
             // Splits the .title string into separate words, then rejoins them with either underscores(for rotten tomatoes), or hyphens(for metacritic) separating the words
             var nameArr = newName.split(' ')
             var nameStringRotten = nameArr.join('_').toLowerCase()
